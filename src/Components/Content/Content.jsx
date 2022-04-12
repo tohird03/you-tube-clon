@@ -25,7 +25,17 @@ const Content = () => {
 
      return (
         <>
-            <div className="hhh">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi illum laudantium, quasi, possimus sint repellendus, totam necessitatibus consectetur qui dolore soluta! Expedita ipsam, molestias magni nulla perspiciatis ipsum adipisci laborum!</div>
+            <div className="hhh">
+                <button className='trends'>Muzic</button>
+                <button className='trends'>Muzic</button>
+                <button className='trends'>Muzic</button>
+                <button className='trends'>Muzic</button>
+                <button className='trends'>Muzic</button>
+                <button className='trends'>Muzic</button>
+                <button className='trends'>Muzic</button>
+                <button className='trends'>Muzic</button>
+                <button className='trends'>Muzic</button>
+            </div>
             <div className="videos">
 
                 {

@@ -1,0 +1,38 @@
+.explore {
+    padding: 20px 80px;
+    &__category {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__card {
+        width: 210px;
+        background-color: white;
+        padding: 30px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    &__card:hover {
+        background-color: #E0E0E0;
+        cursor: pointer;
+    }
+
+    &__card + &__card {
+        margin-left: 10px;
+    }
+
+    &__card:nth-child(6){
+        margin-left: 0;
+    }
+
+    &__card-img {
+        margin-bottom: 10px;
+    }
+
+    &__card-heading {
+        font-size: 1rem;
+        color: black;
+        font-weight: 500;
+    }
+}

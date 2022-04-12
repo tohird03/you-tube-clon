@@ -14,6 +14,7 @@ const Video = () => {
     const { history, setHistory } = useContext(Context)
     const { search, setSearch } = useContext(Context)
     const { historySort, setHistorySort } = useContext(Context)
+    const [commentNext, setCommentNext] = useState("")
     // window.localStorage.getItem()
     useEffect(() => {
         setHistory([...history, x])
@@ -28,15 +29,15 @@ const Video = () => {
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
+            'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
             'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
         }
     };
 
     useEffect(() => {
-        fetch(`https://youtube-v31.p.rapidapi.com/commentThreads?part=snippet&videoId=${x.id}&maxResults=100`, options)
+        fetch(`https://youtube-search-and-download.p.rapidapi.com/video/comments?id=${x.id}`, options)
             .then(response => response.json())
-            .then(response => console.log(response))
+            .then(response => setComents(response))
             .catch(err => console.error(err));
     }, [x]);
 
@@ -46,7 +47,7 @@ const Video = () => {
             .then(response => response.json())
             .then(response => setChanelVideo(response))
             .catch(err => console.error(err));
-    }, []);
+    }, [x]);
 
     // ///////////////////// video
     const optionsVideo = {
@@ -81,7 +82,6 @@ const Video = () => {
             .catch(err => console.error(err));
     }, []);
 
-
     return (
         <div className='info'>
             <div id='video__content' className='info__content'>
@@ -96,31 +96,32 @@ const Video = () => {
                 <hr className='hr' />
 
                 {
-                    coments?.items?.map(i => {
+                    coments.comments?.map(i => {
                         return < div key={Math.random()} className="info__desc-details">
                             <div className="author">
-                                <img src={i?.snippet?.topLevelComment?.snippet?.authorProfileImageUrl}
+                                <img src={i?.authorThumbnails[0].url}
                                     alt="" />
                             </div>
                             <div>
                                 <div className="info__desc-title">
                                     <h3 className='info__desc-heading'>
-                                        {i?.snippet?.topLevelComment?.snippet?.authorDisplayName}
+                                        {i?.authorName}
                                     </h3>
                                     {/* <a href="">
                                             {i?.video.channelName}
                                         </a> */}
-                                    <span>{i.snippet.topLevelComment.snippet.publishedAt} </span>
+                                    <span>{i?.publishedTimeText} </span>
                                 </div>
 
                                 <div>
-                                    {i?.snippet?.topLevelComment?.snippet?.textOriginal}
+                                    {i?.text}
                                 </div>
                             </div>
                         </div>
 
                     })
                 }
+
             </div>
             <div className='chanel-video'>
                 {

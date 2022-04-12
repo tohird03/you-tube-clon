@@ -14,43 +14,47 @@ const Search = () => {
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
-            'X-RapidAPI-Key': 'ca0086abcdmsh7ba5539aa77e537p136102jsnef030ba1033c'
+            'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
+            'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
         }
     };
 
     useEffect(() => {
-        fetch(`https://youtube-v31.p.rapidapi.com/search?q=${search}&part=snippet%2Cid&regionCode=US&maxResults=100&order=date`, options)
+
+        fetch(`https://youtube-search-and-download.p.rapidapi.com/search?query=${search}&next=EogDEgVoZWxsbxr-AlNCU0NBUXRaVVVoeldFMW5iRU01UVlJQkMyMUlUMDVPWTFwaWQwUlpnZ0VMWW1VeE1rSkROWEJSVEVXQ0FRdFZNMEZUYWpGTU5sOXpXWUlCQzJaaGVrMVRRMXBuTFcxM2dnRUxaV3hrWldGSlFYWmZkMFdDQVExU1JGbFJTSE5ZVFdkc1F6bEJnZ0VMT0hwRVUybHJRMmc1Tm1PQ0FRc3pOMFU1VjNORWJVUmxaNElCQzJGaFNXcHpPRXN6YjFsdmdnRUxaMmRvUkZKS1ZuaEdlRldDQVF0clN6UXlURnB4VHpCM1FZSUJDME42VHpOaFNXVXdVbkJ6Z2dFTFNVNHdUMk5WZGtkaU5qQ0NBUXRSYTJWbGFGRTRSRjlXVFlJQkMyWk9NVU41Y2pCYVN6bE5nZ0VMZEZac1kwdHdNMkpYU0RpQ0FRdGZSQzFGT1Rsa01XSk1TWUlCQzJoQlUwNVRSSFZOY2pGUmdnRUxkREEzTVZkdE5EVnhWMDAlM0QYgeDoGCILc2VhcmNoLWZlZWQ%253D&hl=en&gl=US&upload_date=t&type=v&duration=s&features=li%3Bhd&sort=v`, options)
         .then(response => response.json())
         .then(response => setSearchResult(response))
         .catch(err => console.error(err));
     }, [search]);
+
+    console.log();
+
     return (
         <div className='search__video'>
             {
-                searchResult?.items?.map(i => {
-                    return <Link onClick={handleClickHome} className='search__result-video' key={Math.random()} to={`/${i?.snippet?.channelId}/${i?.id?.videoId}/${i?.snippet.title}/${i?.snippet.channelTitle}/${i?.snippet?.publishTime}`}>
+                searchResult?.contents?.map(i => {
+                    return <Link onClick={handleClickHome} className='search__result-video' key={Math.random()} to={`/${i?.video?.channelId}/${i?.video?.videoId}/${i?.video?.title}/${i?.video.channelName}/${i?.video?.publishedTimeText}`}>
                             <div  className="video search__videos">
                                 <div className=" search__account-img">
-                                    <img className='search__account__img' src={i?.snippet?.thumbnails?.medium?.url || notVideo} alt="" />
+                                    <img className='search__account__img' src={i?.video?.thumbnails[0].url || notVideo} alt="" />
                                 </div>
 
                                 <div className="details searchs">
                                     <div className="title search__titles">
                                         <h3 className='search__video-title'>
-                                            {i?.snippet?.title}
+                                            {i?.video?.title}
                                         </h3>
-                                        <span>{i?.snippet?.publishTime} </span>
+                                        <span>{i?.video?.viewCountText} • {i?.video?.publishedTimeText} </span>
                                     </div>
                                     <div className="author search__author">
-                                        <img src={i?.snippet?.thumbnails?.high.url}
+                                        <img src={i?.video?.thumbnails[0].url || notVideo}
                                             alt="" />
 
-                                         <span className='search__author-span'>{i?.snippet?.channelTitle} </span>
+                                         <span className='search__author-span'>{i?.video?.channelName} </span>
                                     </div>
 
                                     <div>
-                                        <span>{i?.snippet?.description}</span>
+                                        <span>{i?.video?.description}</span>
                                     </div>
                                 </div>
 

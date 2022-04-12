@@ -6,7 +6,8 @@ import Navbar from './Components/Sidebar/Navbar';
 import Video from './Components/Video/Video';
 import Search from './Pages/Search/Search';
 import Private from './Routes/Private';
-import History from './Pages/Search/History/History';
+import History from './Pages/History/History';
+import Explore from './Pages/Explore/Explore';
 function App() {
   return (
     <>
@@ -21,6 +22,7 @@ function App() {
               <Route path='/:productId/:id/:title/:views/:publishedTimeText' element={<Video/>}/>
               <Route path='/search' element={<Search/>}/>
               <Route path='/history' element={<History/>}/>
+              <Route path='/explore' element={<Explore/>}/>
             </Route>
           </Routes>
         </div>

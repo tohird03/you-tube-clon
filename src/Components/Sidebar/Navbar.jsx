@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { Context } from '../../Context/HamburgerBtn';
 import "../Sidebar/Navbar.css"
 import shortsIcon from "../../Assets/img/shorts.png"
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import muzic from '../../Assets/img/muzic.png';
 const Navbar = () => {
     const { humbergerBtn } = useContext(Context)
     const { search, setSearch } = useContext(Context)
@@ -12,14 +13,15 @@ const Navbar = () => {
     return (
         <div className={humbergerBtn ? "side-bar" : "side-bar-short"}>
             <div className="navbar">
-                <Link onClick={handleClickHome} to="/" className="nav-link">
+                <NavLink style={({ isActive }) =>
+                    (isActive ? { color: 'red' } : { color: 'blue' })} onClick={handleClickHome} to="/" className="nav-link">
                     <div className='nav__links'>
                         <i className="material-icons">home</i>
                         <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>Home</span>
                     </div>
                     <span className={humbergerBtn ? "d-block" : "d-none"}>Home</span>
-                </Link>
-                <a className="nav-link">
+                </NavLink>
+                <NavLink to="/explore" className="nav-link">
                     <div className='nav__links'>
                         <i className="material-icons">
                             explore
@@ -27,7 +29,7 @@ const Navbar = () => {
                         <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>Explore</span>
                     </div>
                     <span className={humbergerBtn ? "d-block" : "d-none"}>Explore</span>
-                </a>
+                </NavLink>
                 <a className="nav-link">
                     <div className='nav__links'>
                         <img className='nav__links-shorts' width="30" src={shortsIcon} alt="" />
@@ -35,12 +37,12 @@ const Navbar = () => {
                     </div>
                     <span className={humbergerBtn ? "d-block" : "d-none"}>Shorts</span>
                 </a>
-                <a  className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"}>
+                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"}>
                     <i className="material-icons">subscriptions</i>
                     <span className={humbergerBtn ? "d-block ss" : "d-none ss"}>Subscriptions</span>
                 </a>
 
-                <hr className={humbergerBtn ? "d-block" : "d-none"}/>
+                <hr className={humbergerBtn ? "d-block" : "d-none"} />
                 <a className="nav-link">
                     <div className='nav__links'>
                         <i className="material-icons">video_library</i>
@@ -49,13 +51,13 @@ const Navbar = () => {
                     <span className={humbergerBtn ? "d-block" : "d-none"}>Library</span>
                 </a>
 
-                <Link to="/history" className="nav-link">
+                <NavLink to="/history" className="nav-link">
                     <div className='nav__links'>
                         <i className="material-icons">history</i>
                         <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>History</span>
                     </div>
                     <span className={humbergerBtn ? "d-block" : "d-none"}>History</span>
-                </Link>
+                </NavLink>
 
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <i className="material-icons">watch_later</i>
@@ -74,6 +76,24 @@ const Navbar = () => {
                 </a>
 
                 <hr className={humbergerBtn ? "d-block" : "d-none"} />
+
+                <h3 className={humbergerBtn ? "d-block subscription" : "d-none subscription"} >SUBSCRIPTIONS</h3>
+                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                    <i className="material-icons">sports_esports</i>
+                    <span >Gaming</span>
+                </a>
+                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                    <img className='link__icon' width="24" height="24" src="https://img.icons8.com/ios/50/000000/youtube-live.png" />
+                    <span >Live</span>
+                </a>
+                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                    <img className='link__icon' width="24" height="24" src={muzic} />
+                    <span >Muzic</span>
+                </a>
+                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                    <i className="material-icons">emoji_events</i>
+                    <span >Sports</span>
+                </a>
             </div>
         </div>
 

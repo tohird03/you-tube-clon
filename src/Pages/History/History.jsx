@@ -1,9 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Context } from '../../../Context/HamburgerBtn';
+import { Context } from '../../Context/HamburgerBtn';
 
 const History = () => {
     const { historySort, setHistorySort } = useContext(Context)
     const [historyVideo, setHistoryVideo] = useState([])
+
+    // useEffect(() => {
+
+    // }, [i]);
+
     const options = {
         method: 'GET',
         headers: {
@@ -12,14 +17,14 @@ const History = () => {
         }
     };
 
-    useEffect(() => {
-        historySort?.map(i => {
-            fetch(`https://youtube-v31.p.rapidapi.com/videos?part=contentDetails%2Csnippet%2Cstatistics&id=${i}`, options)
-                .then(response => response.json())
-                .then(response => setHistoryVideo(response))
-                .catch(err => console.error(err));
-        });
-    }, [historySort])
+    historySort?.map(i => {
+
+
+        fetch(`https://youtube-v31.p.rapidapi.com/videos?part=contentDetails%2Csnippet%2Cstatistics&id=${i}`, options)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(err => console.error(err));
+    })
 
     console.log(historyVideo);
     return (
