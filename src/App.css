@@ -5,3 +5,8 @@ a {
 .active {
     background-color: blue;
 }
+
+.content {
+    height: 92vh;
+    bottom: 0;
+}
