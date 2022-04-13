@@ -13,18 +13,21 @@ const Video = () => {
     const [searchResultInfo, setSearchResultInfo] = useState([])
     const { history, setHistory } = useContext(Context)
     const { search, setSearch } = useContext(Context)
-    const { historySort, setHistorySort } = useContext(Context)
     const [commentNext, setCommentNext] = useState("")
     // window.localStorage.getItem()
-    useEffect(() => {
-        setHistory([...history, x])
-    }, [x]);
+    // if()
+    // useEffect(() => {
+    //     if(history.length >= 1) {
+    //         history?.map(i => {
+    //             if(i.id != x.id){
+    //                 history.push(x)
+    //             }
+    //         })
+    //     }else {
+    //         setHistory([...history, x])
+    //     }
 
-    history?.map(i => {
-        if(!historySort.includes(i.id)){
-            historySort.push(i.id)
-        }
-    })
+    // }, [x]);
 
     // const options = {
     //     method: 'GET',
