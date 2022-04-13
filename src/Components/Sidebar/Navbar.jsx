@@ -21,6 +21,7 @@ const Navbar = () => {
                     </div>
                     <span className={humbergerBtn ? "d-block" : "d-none"}>Home</span>
                 </NavLink>
+
                 <NavLink to="/explore" className="nav-link">
                     <div className='nav__links'>
                         <i className="material-icons">
@@ -30,6 +31,7 @@ const Navbar = () => {
                     </div>
                     <span className={humbergerBtn ? "d-block" : "d-none"}>Explore</span>
                 </NavLink>
+
                 <a className="nav-link">
                     <div className='nav__links'>
                         <img className='nav__links-shorts' width="30" src={shortsIcon} alt="" />
@@ -37,12 +39,16 @@ const Navbar = () => {
                     </div>
                     <span className={humbergerBtn ? "d-block" : "d-none"}>Shorts</span>
                 </a>
+
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"}>
                     <i className="material-icons">subscriptions</i>
-                    <span className={humbergerBtn ? "d-block ss" : "d-none ss"}>Subscriptions</span>
+                    <span className={humbergerBtn ? "d-block ss" : "d-none ss"}>
+                        Subscriptions
+                    </span>
                 </a>
 
                 <hr className={humbergerBtn ? "d-block" : "d-none"} />
+
                 <a className="nav-link">
                     <div className='nav__links'>
                         <i className="material-icons">video_library</i>
@@ -63,13 +69,18 @@ const Navbar = () => {
                     <i className="material-icons">watch_later</i>
                     <span >Watch later</span>
                 </a>
+
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <i className="material-icons">thumb_up</i>
                     <span >Liked videos</span>
                 </a>
 
                 <hr className={humbergerBtn ? "d-block" : "d-none"} />
-                <h3 className={humbergerBtn ? "d-block subscription" : "d-none subscription"} >SUBSCRIPTIONS</h3>
+
+                <h3 className={humbergerBtn ? "d-block subscription" : "d-none subscription"} >
+                    SUBSCRIPTIONS
+                </h3>
+
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <i className="material-icons">add_circle_outline</i>
                     <span >Browse channels</span>
@@ -77,19 +88,25 @@ const Navbar = () => {
 
                 <hr className={humbergerBtn ? "d-block" : "d-none"} />
 
-                <h3 className={humbergerBtn ? "d-block subscription" : "d-none subscription"} >SUBSCRIPTIONS</h3>
+                <h3 className={humbergerBtn ? "d-block subscription" : "d-none subscription"} >
+                    SUBSCRIPTIONS
+                </h3>
+
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <i className="material-icons">sports_esports</i>
                     <span >Gaming</span>
                 </a>
+
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <img className='link__icon' width="24" height="24" src="https://img.icons8.com/ios/50/000000/youtube-live.png" />
                     <span >Live</span>
                 </a>
+
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <img className='link__icon' width="24" height="24" src={muzic} />
                     <span >Muzic</span>
                 </a>
+
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <i className="material-icons">emoji_events</i>
                     <span >Sports</span>

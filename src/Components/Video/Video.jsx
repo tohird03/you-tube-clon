@@ -26,61 +26,61 @@ const Video = () => {
         }
     })
 
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
-            'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
-        }
-    };
+    // const options = {
+    //     method: 'GET',
+    //     headers: {
+    //         'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
+    //         'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
+    //     }
+    // };
 
-    useEffect(() => {
-        fetch(`https://youtube-search-and-download.p.rapidapi.com/video/comments?id=${x.id}`, options)
-            .then(response => response.json())
-            .then(response => setComents(response))
-            .catch(err => console.error(err));
-    }, [x]);
+    // useEffect(() => {
+    //     fetch(`https://youtube-search-and-download.p.rapidapi.com/video/comments?id=${x.id}`, options)
+    //         .then(response => response.json())
+    //         .then(response => setComents(response))
+    //         .catch(err => console.error(err));
+    // }, [x]);
 
-    // ///
-    useEffect(() => {
-        fetch(`https://youtube-search-and-download.p.rapidapi.com/channel?id=${x.productId}&next=4qmFsgKFARIYVUNpVEdLQTlXMEcwVEw4SG03VWZfdTlBGjpFZ1oyYVdSbGIzTVlBeUFBTUFFNEFlb0RGa05uUVZORFoycHdNazVFTkRWT2VVcHNhMmR2VFdjJTNEmgIsYnJvd3NlLWZlZWRVQ2lUR0tBOVcwRzBUTDhIbTdVZl91OUF2aWRlb3MxMDI%253D&sort=n`, options)
-            .then(response => response.json())
-            .then(response => setChanelVideo(response))
-            .catch(err => console.error(err));
-    }, [x]);
+    // // ///
+    // useEffect(() => {
+    //     fetch(`https://youtube-search-and-download.p.rapidapi.com/channel?id=${x.productId}&next=4qmFsgKFARIYVUNpVEdLQTlXMEcwVEw4SG03VWZfdTlBGjpFZ1oyYVdSbGIzTVlBeUFBTUFFNEFlb0RGa05uUVZORFoycHdNazVFTkRWT2VVcHNhMmR2VFdjJTNEmgIsYnJvd3NlLWZlZWRVQ2lUR0tBOVcwRzBUTDhIbTdVZl91OUF2aWRlb3MxMDI%253D&sort=n`, options)
+    //         .then(response => response.json())
+    //         .then(response => setChanelVideo(response))
+    //         .catch(err => console.error(err));
+    // }, [x]);
 
-    // ///////////////////// video
-    const optionsVideo = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
-            'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
-        }
-    };
+    // // ///////////////////// video
+    // const optionsVideo = {
+    //     method: 'GET',
+    //     headers: {
+    //         'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
+    //         'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
+    //     }
+    // };
 
-    useEffect(() => {
-        fetch('https://youtube-search-and-download.p.rapidapi.com/trending?type=C%20g%2C%20n%2C%20mo&hl=en&gl=US', optionsVideo)
-            .then(response => response.json())
-            .then(response => setVideo(response))
-            .catch(err => console.error(err));
-    }, []);
+    // useEffect(() => {
+    //     fetch('https://youtube-search-and-download.p.rapidapi.com/trending?type=C%20g%2C%20n%2C%20mo&hl=en&gl=US', optionsVideo)
+    //         .then(response => response.json())
+    //         .then(response => setVideo(response))
+    //         .catch(err => console.error(err));
+    // }, []);
 
-    //view
+    // //view
 
-    const optionsVideoInfo = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
-            'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
-        }
-    };
+    // const optionsVideoInfo = {
+    //     method: 'GET',
+    //     headers: {
+    //         'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
+    //         'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
+    //     }
+    // };
 
-    useEffect(() => {
-        fetch(`https://youtube-v31.p.rapidapi.com/videos?part=contentDetails%2Csnippet%2Cstatistics&id=${x.id}`, optionsVideoInfo)
-            .then(response => response.json())
-            .then(response => setSearchResultInfo(response))
-            .catch(err => console.error(err));
-    }, []);
+    // useEffect(() => {
+    //     fetch(`https://youtube-v31.p.rapidapi.com/videos?part=contentDetails%2Csnippet%2Cstatistics&id=${x.id}`, optionsVideoInfo)
+    //         .then(response => response.json())
+    //         .then(response => setSearchResultInfo(response))
+    //         .catch(err => console.error(err));
+    // }, []);
 
     return (
         <div className='info'>
