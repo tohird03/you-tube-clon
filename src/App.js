@@ -8,6 +8,8 @@ import Search from './Pages/Search/Search';
 import Private from './Routes/Private';
 import History from './Pages/History/History';
 import Explore from './Pages/Explore/Explore';
+import Library from './Pages/Library/Library';
+import Chanel from './Pages/AddChanel/Chanel';
 function App() {
   return (
     <>
@@ -23,6 +25,8 @@ function App() {
               <Route path='/search' element={<Search/>}/>
               <Route path='/history' element={<History/>}/>
               <Route path='/explore' element={<Explore/>}/>
+              <Route path="/library" element={<Library/>}/>
+              <Route path="/chanel" element={<Chanel/>}/>
             </Route>
           </Routes>
         </div>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../Context/HamburgerBtn';
 import "../Sidebar/Navbar.css"
 import shortsIcon from "../../Assets/img/shorts.png"
@@ -7,9 +7,29 @@ import muzic from '../../Assets/img/muzic.png';
 const Navbar = () => {
     const { humbergerBtn } = useContext(Context)
     const { search, setSearch } = useContext(Context)
+    const { addChannel, setAddChannel } = useContext(Context)
+    const [chanelNames, setChanelName] = useState([])
     const handleClickHome = () => {
         setSearch([])
     }
+
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
+            'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
+        }
+    };
+
+    useEffect(() => {
+        fetch(`https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${addChannel}`, options)
+            .then(response => response.json())
+            .then(response => setChanelName(response))
+            .catch(err => console.error(err));
+    }, [addChannel]);
+
+
+    console.log(chanelNames);
     return (
         <div className={humbergerBtn ? "side-bar" : "side-bar-short"}>
             <div className="navbar">
@@ -49,13 +69,13 @@ const Navbar = () => {
 
                 <hr className={humbergerBtn ? "d-block" : "d-none"} />
 
-                <a className="nav-link">
+                <NavLink to="/library" className="nav-link">
                     <div className='nav__links'>
                         <i className="material-icons">video_library</i>
                         <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>Library</span>
                     </div>
                     <span className={humbergerBtn ? "d-block" : "d-none"}>Library</span>
-                </a>
+                </NavLink>
 
                 <NavLink to="/history" className="nav-link">
                     <div className='nav__links'>
@@ -81,10 +101,20 @@ const Navbar = () => {
                     SUBSCRIPTIONS
                 </h3>
 
-                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                {
+                    chanelNames?.items?.map(i => {
+                        return <NavLink to="/chanel" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                            <i className="material-icons">add_circle_outline</i>
+                            <span >Browse channels</span>
+                        </NavLink>
+                    })
+                }
+
+
+                <NavLink to="/chanel" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <i className="material-icons">add_circle_outline</i>
                     <span >Browse channels</span>
-                </a>
+                </NavLink>
 
                 <hr className={humbergerBtn ? "d-block" : "d-none"} />
 
