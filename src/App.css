@@ -7,6 +7,24 @@ a {
 }
 
 .content {
-    height: 92vh;
+    height: calc(100vh - 61px);
     bottom: 0;
+}
+
+.dark {
+    background-color: black;
+    color: white;
+}
+
+.dark .navbar hr {
+    background-color: rgb(65, 64, 64);
+}
+
+.content__dark {
+    background-color: #181818;
+}
+
+.content__dark .hhh {
+    border-top: 1px solid rgb(65, 64, 64);
+    border-bottom: 1px solid rgb(65, 64, 64);
 }

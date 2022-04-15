@@ -90,3 +90,18 @@
     display: flex;
     width: 100%;
 }
+
+.content__dark .info .info__content  .info__video-title {
+    color: white;
+}
+.content__dark .info .info__content  div span {
+    color: #aaa;
+}
+.content__dark .info .info__content  .info__desc-details div .info__desc-title h3 {
+    color: #aaa;
+    color: white;
+}
+.content__dark .info .info__content  .info__desc-details div div {
+    color: #aaa;
+    color: white;
+}

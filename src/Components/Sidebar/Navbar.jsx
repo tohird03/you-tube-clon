@@ -1,55 +1,68 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../Context/HamburgerBtn';
+import youTUbeLanguage from '../Localization/Language';
 import "../Sidebar/Navbar.css"
 import shortsIcon from "../../Assets/img/shorts.png"
 import { NavLink } from 'react-router-dom';
-import muzic from '../../Assets/img/muzic.png';
+import musicLight from '../../Assets/img/music-light.png';
+import musicDark from '../../Assets/img/music-dark.png';
+import live from '../../Assets/img/live-dark.png';
+import liveLight from '../../Assets/img/live-light.png';
 const Navbar = () => {
     const { humbergerBtn } = useContext(Context)
     const { search, setSearch } = useContext(Context)
     const { addChannel, setAddChannel } = useContext(Context)
+    const { themeColor, setThemeColor } = useContext(Context)
+    const { languages, setLanguages } = useContext(Context)
     const [chanelNames, setChanelName] = useState([])
     const handleClickHome = () => {
         setSearch([])
     }
 
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
-            'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
-        }
-    };
+    // const options = {
+    //     method: 'GET',
+    //     headers: {
+    //         'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
+    //         'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
+    //     }
+    // };
 
-    useEffect(() => {
-        fetch(`https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${addChannel}`, options)
-            .then(response => response.json())
-            .then(response => setChanelName(response))
-            .catch(err => console.error(err));
-    }, [addChannel]);
+    // useEffect(() => {
+    //     fetch(`https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${addChannel}`, options)
+    //         .then(response => response.json())
+    //         .then(response => setChanelName(response))
+    //         .catch(err => console.error(err));
+    // }, [addChannel]);
 
-
-    console.log(chanelNames);
+    const youTubeNavbarLang = youTUbeLanguage.navbar[languages]
     return (
-        <div className={humbergerBtn ? "side-bar" : "side-bar-short"}>
-            <div className="navbar">
+        <div className={humbergerBtn ? `side-bar ${themeColor}` : `side-bar-short ${themeColor}`}>
+            <div className={`${themeColor} navbar`}>
                 <NavLink style={({ isActive }) =>
                     (isActive ? { color: 'red' } : { color: 'blue' })} onClick={handleClickHome} to="/" className="nav-link">
                     <div className='nav__links'>
-                        <i className="material-icons">home</i>
-                        <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>Home</span>
+                        <i className={`material-icons ${themeColor}`}>home</i>
+                        <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>
+                            {youTubeNavbarLang?.homeLang}
+                        </span>
                     </div>
-                    <span className={humbergerBtn ? "d-block" : "d-none"}>Home</span>
+                    <span className={humbergerBtn ? "d-block" : "d-none"}>
+                        {youTubeNavbarLang?.homeLang}
+                    </span>
                 </NavLink>
 
                 <NavLink to="/explore" className="nav-link">
                     <div className='nav__links'>
-                        <i className="material-icons">
+                        <i className={`material-icons ${themeColor}`}>
                             explore
                         </i>
-                        <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>Explore</span>
+                        <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>
+                            {youTubeNavbarLang?.exploreLang}
+                        </span>
                     </div>
-                    <span className={humbergerBtn ? "d-block" : "d-none"}>Explore</span>
+                    <span className={humbergerBtn ? "d-block" : "d-none"}>
+                        {youTubeNavbarLang?.exploreLang}
+                    </span>
                 </NavLink>
 
                 <a className="nav-link">
@@ -61,9 +74,9 @@ const Navbar = () => {
                 </a>
 
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"}>
-                    <i className="material-icons">subscriptions</i>
+                    <i className={`material-icons ${themeColor}`}>subscriptions</i>
                     <span className={humbergerBtn ? "d-block ss" : "d-none ss"}>
-                        Subscriptions
+                        {youTubeNavbarLang?.subscriptionsLang}
                     </span>
                 </a>
 
@@ -71,76 +84,110 @@ const Navbar = () => {
 
                 <NavLink to="/library" className="nav-link">
                     <div className='nav__links'>
-                        <i className="material-icons">video_library</i>
-                        <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>Library</span>
+                        <i className={`material-icons ${themeColor}`}>video_library</i>
+                        <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>
+                            {youTubeNavbarLang?.libraryLang}
+                        </span>
                     </div>
-                    <span className={humbergerBtn ? "d-block" : "d-none"}>Library</span>
+                    <span className={humbergerBtn ? "d-block" : "d-none"}>
+                        {youTubeNavbarLang?.libraryLang}
+                    </span>
                 </NavLink>
 
                 <NavLink to="/history" className="nav-link">
                     <div className='nav__links'>
-                        <i className="material-icons">history</i>
-                        <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>History</span>
+                        <i className={`material-icons ${themeColor}`}>history</i>
+                        <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>
+                            {youTubeNavbarLang?.historyLang}
+                        </span>
                     </div>
-                    <span className={humbergerBtn ? "d-block" : "d-none"}>History</span>
+                    <span className={humbergerBtn ? "d-block" : "d-none"}>
+                        {youTubeNavbarLang?.historyLang}
+                    </span>
                 </NavLink>
 
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
-                    <i className="material-icons">watch_later</i>
-                    <span >Watch later</span>
+                    <i className={`material-icons ${themeColor}`}>watch_later</i>
+                    <span >
+                        {youTubeNavbarLang?.watchLaterLang}
+                    </span>
                 </a>
 
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
-                    <i className="material-icons">thumb_up</i>
-                    <span >Liked videos</span>
+                    <i className={`material-icons ${themeColor}`}>thumb_up</i>
+                    <span >
+                        {youTubeNavbarLang?.likedVideosLang}
+                    </span>
                 </a>
 
                 <hr className={humbergerBtn ? "d-block" : "d-none"} />
 
                 <h3 className={humbergerBtn ? "d-block subscription" : "d-none subscription"} >
-                    SUBSCRIPTIONS
+                    {youTubeNavbarLang?.subscribeNameLang}
                 </h3>
 
                 {
                     chanelNames?.items?.map(i => {
                         return <NavLink to="/chanel" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
-                            <i className="material-icons">add_circle_outline</i>
+                            <i className={`material-icons zdfasdff`}>add_circle_outline</i>
                             <span >Browse channels</span>
                         </NavLink>
                     })
                 }
 
 
-                <NavLink to="/chanel" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
-                    <i className="material-icons">add_circle_outline</i>
-                    <span >Browse channels</span>
+                <NavLink to="/chanel" className={humbergerBtn ? `${themeColor} d-block nav-link` : `${themeColor} d-none nav-link`} >
+                    <i className={`material-icons `}>add_circle_outline</i>
+                    <span >
+                        {youTubeNavbarLang?.addChannelLang}
+                    </span>
                 </NavLink>
 
                 <hr className={humbergerBtn ? "d-block" : "d-none"} />
 
                 <h3 className={humbergerBtn ? "d-block subscription" : "d-none subscription"} >
-                    SUBSCRIPTIONS
+                    {youTubeNavbarLang?.youTubeInfolang}
                 </h3>
 
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
-                    <i className="material-icons">sports_esports</i>
-                    <span >Gaming</span>
+                    <i className={`material-icons ${themeColor}`}>sports_esports</i>
+                    <span >
+                        {youTubeNavbarLang?.gamingLang}
+                    </span>
                 </a>
 
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
-                    <img className='link__icon' width="24" height="24" src="https://img.icons8.com/ios/50/000000/youtube-live.png" />
-                    <span >Live</span>
+                    <img className='link__icon' width="24" height="24" src={themeColor == "dark" ? liveLight : live} />
+                    <span >
+                        {youTubeNavbarLang?.liveLang}
+                    </span>
                 </a>
 
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
-                    <img className='link__icon' width="24" height="24" src={muzic} />
-                    <span >Muzic</span>
+                    <img className='link__icon' width="24" height="24" src={themeColor == "dark" ? musicLight : musicDark} />
+                    <span >
+                        {youTubeNavbarLang?.musicLang}
+                    </span>
                 </a>
 
                 <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
-                    <i className="material-icons">emoji_events</i>
-                    <span >Sports</span>
+                    <i className={`material-icons ${themeColor}`}>emoji_events</i>
+
+                    <span >
+                        {youTubeNavbarLang?.sportLang}
+                    </span>
                 </a>
+
+                <hr className={humbergerBtn ? "d-block" : "d-none"} />
+
+                <span className={humbergerBtn ? "creator d-block" : "creator d-none"}>
+                    <span>{youTubeNavbarLang?.creatorLang}: -- Tohirjon Doniyorov</span>
+                    <span>{youTubeNavbarLang?.createTime}</span>
+                    <a className='creator__link' href='https://www.linkedin.com/in/tohir-doniyorov-1b7540231'>{youTubeNavbarLang?.ceratorLinkedIn}</a>
+                    <a className='creator__link' href='https://github.com/tohird03/'>
+                        {youTubeNavbarLang?.creatorGitHub}
+                    </a>
+                </span>
             </div>
         </div>
 

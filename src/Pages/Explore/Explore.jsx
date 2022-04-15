@@ -1,7 +1,7 @@
 import React from 'react';
 import "../Explore/Explore.scss"
 import trend from "../../Assets/img/trend1.png"
-import muzic from "../../Assets/img/muzika.png"
+import muzic from "../../Assets/img/music-dark.png"
 import live from "../../Assets/img/trend2.png"
 import gameng from "../../Assets/img/game.png"
 import news from "../../Assets/img/news.png"

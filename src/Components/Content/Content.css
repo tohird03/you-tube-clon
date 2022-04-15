@@ -19,3 +19,14 @@
 .trends + .trends {
     margin-left: 20px;
 }
+
+.content__dark .videos a .video .details .title h3 {
+    color: white;
+}
+
+.content__dark .videos a .video .details .title a {
+    color: #aaa;
+}
+.content__dark .videos a .video .details .title span {
+    color: #aaa;
+}
