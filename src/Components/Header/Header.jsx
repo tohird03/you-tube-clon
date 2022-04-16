@@ -22,7 +22,7 @@ import youtubeLogos from "../../Assets/img/youtubeLogos.png"
 const Header = (props) => {
 
     const { search, setSearch } = useContext(Context)
-    const {userAbboutAccount, setUserAbboutAccount} = useContext(Context)
+    const { userAbboutAccount, setUserAbboutAccount } = useContext(Context)
     const [searchValue, setSearchValue] = useState("")
     const { humbergerBtn, setHumbergerBtn } = useContext(Context)
     const { searchPage, setSearchPage } = useContext(Context)
@@ -33,6 +33,7 @@ const Header = (props) => {
     const [language, setLanguage] = useState(false)
     const [locationUser, setLocationUser] = useState(false)
     const [youTubeApps, setYouTubeApps] = useState(false)
+    const [keyboard, setKeyboard] = useState(false)
 
     const handleClick = () => {
         setHumbergerBtn(!humbergerBtn)
@@ -92,9 +93,16 @@ const Header = (props) => {
     const handleLanguageType = (e) => {
         setLanguages(e.target.id);
     }
+
+    const handleKeyboard = () => {
+        setKeyboard(!keyboard)
+    }
+    const handlePrevKeyboard = () => {
+        setKeyboard(!keyboard)
+    }
     const languageHeaderObj = youTUbeLanguage.header[languages]
-    console.log(userAbboutAccount[0]?.userAddName?.split("")[0]);
-    return (
+    return (<>
+
         <header className={`header ${themeColor}`}>
             <div className="logo left">
                 <button className='humburger__menu' onClick={handleClick}>
@@ -117,7 +125,7 @@ const Header = (props) => {
                 <i className={`material-icons mic ${themeColor}`}>mic</i>
             </div>
 
-            <div className="icons right">
+            <div className={`icons right`}>
                 <i className={`material-icons ${themeColor}`}>videocam</i>
                 <button onClick={handleYouTubeApps} className='material__button'>
                     <i className={`material-icons ${themeColor}`}>apps</i>
@@ -156,7 +164,7 @@ const Header = (props) => {
                 </button>
 
                 <div className={settingsModal ? `${themeColor} user__settings` : ` ${themeColor} user__settings-none`}>
-                    <div className={theme ? `d-block ${themeColor}` : `d-none ${themeColor}`}>
+                    <div className={theme ? `d-block ${themeColor} user__setting-border` : `d-none ${themeColor} user__setting-border`}>
                         <div className={"user__accaunt"}>
                             <i onClick={handlePrevTheme} className={`material-icons mic ${themeColor}`}>arrow_back</i>
                             <h2 className='user__name'>{languageHeaderObj?.themeNameUser}</h2>
@@ -177,7 +185,7 @@ const Header = (props) => {
                         </div>
                     </div>
 
-                    <div className={language ? `${themeColor} d-block` : `d-none ${themeColor}`}>
+                    <div className={language ? `${themeColor} d-block user__setting-border` : `d-none ${themeColor} user__setting-border`}>
                         <div className={"user__accaunt"}>
                             <i onClick={handlePrevLanguage} className={`material-icons mic ${themeColor}`}>arrow_back</i>
                             <h2 className={`${themeColor} user__name`}>
@@ -187,7 +195,7 @@ const Header = (props) => {
 
                         <div className='user__setting-theme'>
                             <span className={`${themeColor}`}>
-                            {languageHeaderObj?.themeAboutUser}
+                                {languageHeaderObj?.themeAboutUser}
                             </span>
                             <div className='user__setting-theme-btn'>
                                 <button onClick={handleLanguageType} id="uz" className={`${themeColor} ${languages == "uz" ? "settings__active" : ""} user__setting-theme-color`}>
@@ -203,7 +211,7 @@ const Header = (props) => {
                         </div>
                     </div>
 
-                    <div className={locationUser ? `${themeColor} d-block` : `d-none ${themeColor}`}>
+                    <div className={locationUser ? `${themeColor} d-block user__setting-border` : `d-none ${themeColor} user__setting-border`}>
                         <div className={"user__accaunt"}>
                             <i onClick={handlePrevLocation} className={`material-icons mic ${themeColor}`}>arrow_back</i>
                             <h2 className='user__name'>
@@ -229,10 +237,10 @@ const Header = (props) => {
                         </div>
                     </div>
 
-                    <div className={(theme || language || locationUser) ? `${themeColor} d-none` : `${themeColor} d-block`}>
+                    <div className={(theme || language || locationUser || keyboard) ? `${themeColor} d-none user__setting-border` : `${themeColor} d-block user__setting-border`}>
                         <div className={"user__accaunt"}>
                             <div className='user__account-icon'>
-                            {userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName?.split("")[0] : userAbboutAccount[0]?.userAddName?.split("")[0]}
+                                {userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName?.split("")[0] : userAbboutAccount[0]?.userAddName?.split("")[0]}
                             </div>
 
                             <h2 className='user__name'>{userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName : userAbboutAccount[0]?.userAddName}</h2>
@@ -282,25 +290,195 @@ const Header = (props) => {
                             <div onClick={handleLocation} className='user__setting-link'>
                                 <i className={`material-icons mic ${themeColor}`}>language</i>
                                 <p className='user__setting-link-desc'>
-                                {languageHeaderObj?.locationUser}: Argentina</p>
+                                    {languageHeaderObj?.locationUser}: Argentina</p>
                             </div>
                             <div className='user__setting-link'>
                                 <i className={`material-icons mic ${themeColor}`}>person_pin_circle</i>
                                 <p className='user__setting-link-desc'>
-                                {languageHeaderObj?.dataUser}
+                                    {languageHeaderObj?.dataUser}
                                 </p>
                             </div>
-                            <div className='user__setting-link'>
+                            <div onClick={handleKeyboard} className='user__setting-link'>
                                 <i className={`material-icons mic ${themeColor}`}>keyboard_alt</i>
                                 <p className='user__setting-link-desc'>
-                                {languageHeaderObj?.keyboardUser}
+                                    {languageHeaderObj?.keyboardUser}
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </header>
+
+        {/* //User keyboard body modal */}
+        <div className={keyboard ? "bg__blur-modal" : ``}></div>
+        <div className={themeColor}>
+            <div className={keyboard ? `${themeColor} keyboard d-block` : `keyboard d-none ${themeColor}`}>
+                <div className={"user__keyboard-modal d-fixed"}>
+                    <h2 className='user__keyboard-modal-heading'>
+                        Keyboard shortcuts
+                    </h2>
+                </div>
+
+                <div className='user__keyboard-modal-type'>
+                    <div className='user__keyboard-modal-body'>
+                        <p className='user__keyboard-heading'>PLAYBACK</p>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Toggle play/pause</p>
+                            <p className='user__keyboard-code'>k</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Rewind 10 seconds</p>
+                            <p className='user__keyboard-code'>j</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Fast forward 10 seconds</p>
+                            <p className='user__keyboard-code'>l</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Previous video</p>
+                            <p className='user__keyboard-code'>P (SHIFT+p)</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Next video</p>
+                            <p className='user__keyboard-code'>N (SHIFT+n)</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Previous frame (while paused)</p>
+                            <p className='user__keyboard-code'>,</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Next frame (while paused)</p>
+                            <p className='user__keyboard-code'>.</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Decrease playback rate</p>
+                            <p className='user__keyboard-code'><pre>{"<"} (SHIFT+,)</pre> </p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Increase playback rate</p>
+                            <p className='user__keyboard-code'><pre>{">"} (SHIFT+.)</pre></p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Seek to specific point in the video (7 advances to 70% of duration)</p>
+                            <p className='user__keyboard-code'>0..9</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Seek to previous chapter</p>
+                            <p className='user__keyboard-code'>CONTROL + ←</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Seek to next chapter</p>
+                            <p className='user__keyboard-code'>CONTROL + →</p>
+                        </div>
+                    </div>
+                    <div className='user__keyboard-modal-body'>
+                        <p className='user__keyboard-heading'>GENERAL</p>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Toggle full screen</p>
+                            <p className='user__keyboard-code'>f</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Toggle theater mode</p>
+                            <p className='user__keyboard-code'>t</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Toggle miniplayer</p>
+                            <p className='user__keyboard-code'>i</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Close miniplayer or current dialog</p>
+                            <p className='user__keyboard-code'>ESCAPE</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Toggle mute</p>
+                            <p className='user__keyboard-code'>m</p>
+                        </div>
+                    </div>
+                    <div className='user__keyboard-modal-body'>
+                        <p className='user__keyboard-heading'>SUBTITLES AND CLOSED CAPTIONS</p>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>If the video supports captions, toggle captions ON/OFF</p>
+                            <p className='user__keyboard-code'>c</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Rotate through different text opacity levels</p>
+                            <p className='user__keyboard-code'>o</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Rotate through different window opacity levels</p>
+                            <p className='user__keyboard-code'>w</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Rotate through font sizes (increasing)</p>
+                            <p className='user__keyboard-code'>+</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Rotate through font sizes (decreasing)</p>
+                            <p className='user__keyboard-code'>-</p>
+                        </div>
+                    </div>
+                    <div className='user__keyboard-modal-body'>
+                        <p className='user__keyboard-heading'>SPHERICAL VIDEOS</p>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Pan up</p>
+                            <p className='user__keyboard-code'>w</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Pan left</p>
+                            <p className='user__keyboard-code'>a</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Pan down</p>
+                            <p className='user__keyboard-code'>s</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Pan right</p>
+                            <p className='user__keyboard-code'>d</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Zoom in</p>
+                            <p className='user__keyboard-code'>+ on numpad or ]</p>
+                        </div>
+                        <span className='user__keyboard-type-hr'></span>
+                        <div className='user__keyboard-type'>
+                            <p className='user__keyboard-heading'>Zoom out</p>
+                            <p className='user__keyboard-code'>- on numpad or [</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </>
     );
 }
 

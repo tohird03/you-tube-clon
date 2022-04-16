@@ -229,7 +229,17 @@
   width: 300px;
   margin-left: -155px;
   background-color: white;
+  /* border: 1px solid rgb(220, 217, 217); */
+  border-top: none;
+}
+
+.user__setting-border {
   border: 1px solid rgb(220, 217, 217);
+  border-top: none;
+}
+
+.dark .user__setting-border {
+  border: 1px solid rgb(65 64 64);
   border-top: none;
 }
 
@@ -394,4 +404,116 @@
 .dark .user__setting-bottom .active {
   color: white;
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.keyboard {
+  position: absolute;
+  z-index: 1000;
+  width: 85%;
+  height: 85vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 20px 40px;
+  overflow-y: scroll;
+}
+
+/* Umumiy ota style */
+.keyboard::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* scrolning uzini stylesi */
+.keyboard::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
+    -webkit-border-radius: 10px;
+    background-color:#fff;
+    border-radius: 10px;
+}
+
+/* scroll ichidagi scrolcha style */
+.keyboard::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background:#666;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+.sticky__top {
+  padding: 0px 0px 100px;
+  display: block;
+}
+
+.user__keyboard-modal {
+  padding: 20px 0;
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  top: 0;
+  font-size: 20px;
+  background-color: #202020;
+}
+
+.user__keyboard-modal-type {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.user__keyboard-modal-body:nth-child(1), .user__keyboard-modal-body:nth-child(2) {
+  margin-bottom: 100px;
+}
+
+.user__keyboard-modal-body {
+  width: 48%;
+  margin-bottom: 30px;
+}
+
+.user__keyboard-modal i {
+  margin-top: 0;
+}
+
+.bg__blur-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(0px);
+    z-index: 50;
+}
+.user__keyboard-heading{
+    color: #aaa;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.user__keyboard-type {
+  display: flex;
+  padding: 8px 0 0px 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user__keyboard-code {
+  width: 150px;
+  font-weight: bold;
+}
+
+.user__keyboard-modal-body .user__keyboard-type-hr {
+  display: inline-block;
+  width: 100%;
+  height: 0.1px;
+  background-color: rgba(220, 217, 217, 0.3);
+}
+
+.light .keyboard {
+  background-color: white;
+  color: black;
+}
+.light .keyboard  .user__keyboard-modal-type .user__keyboard-modal-body p{
+  background-color: white;
+  color: black;
 }

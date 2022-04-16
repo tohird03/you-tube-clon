@@ -14,18 +14,17 @@ const Chanel = () => {
         }
     };
 
-    useEffect(() => {
-        fetch('https://youtube-v31.p.rapidapi.com/search?relatedToVideoId=7ghhRHRP6t4&part=id%2Csnippet&type=video&maxResults=50', options)
-            .then(response => response.json())
-            .then(response => setChanel(response))
-            .catch(err => console.error(err));
-    }, []);
+    // useEffect(() => {
+    //     fetch('https://youtube-v31.p.rapidapi.com/search?relatedToVideoId=7ghhRHRP6t4&part=id%2Csnippet&type=video&maxResults=50', options)
+    //         .then(response => response.json())
+    //         .then(response => setChanel(response))
+    //         .catch(err => console.error(err));
+    // }, []);
 
 
-    useEffect(() => {
-        setChanelFilter(chanel?.items?.filter(i => i.snippet))
-    }, [chanel]);
-    console.log(chanelFilter);
+    // useEffect(() => {
+    //     setChanelFilter(chanel?.items?.filter(i => i.snippet))
+    // }, [chanel]);
     const handleAddChanel = (e) => {
         console.log(e.target.textContent);
         if (!addChannel.includes(e.target.id)) {

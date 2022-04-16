@@ -5,7 +5,6 @@ const History = () => {
     const { historySort, setHistorySort } = useContext(Context)
     const [historyVideo, setHistoryVideo] = useState([])
 
-    console.log(historySort);
     return (
         <div>
             {/* <Link onClick={handleClickHome} className='search__result-video' key={Math.random()} to={`/${historyVideo?.items[0]?.snippet?.channelId}/${historyVideo?.items[0].id}/${i?.snippet.title}/${i?.snippet.channelTitle}/${i?.snippet?.publishTime}`}>
