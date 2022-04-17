@@ -38,20 +38,35 @@ const Header = (props) => {
     const [keyboard, setKeyboard] = useState(false)
     const [handleSwitchAccount, setHandleSwitchAccount] = useState(false)
     const [audioSearch, setAudioSearch] = useState(false)
+    const [audioStop, setAudioStop] = useState(true)
     const [searchInputAudioValue, setSearchInputAudioValue] = useState([])
+    const [asearchInputAudioValue, setASearchInputAudioValue] = useState([])
     const [a, setA] = useState("")
     const [b, setB] = useState("")
     const [d, setD] = useState("")
-
+    const audioStart = new Audio("https://www.youtube.com/s/search/audio/open.mp3")
+    const audioStops = new Audio("https://www.youtube.com/s/search/audio/failure.mp3")
+    const audioIncludes = new Audio("https://www.youtube.com/s/search/audio/success.mp3")
+    const audioReset = new Audio("https://www.youtube.com/s/search/audio/no_input.mp3")
+    const aaa = document.querySelectorAll(".ali")
     useEffect(() => {
-        if(a === "YouTube" && b === "YouTube" && d === "YouTube"){
-            console.log(a, b, d);
-            setSearch(transcript)
+        if (a === "YouTube" && b === "YouTube" && d === "YouTube") {
+            const searchValueAudio = setSearch(transcript.split(" ")?.filter(i => i ? i !== "YouTube" : "YouTube").join(" "))
+
+            if(searchValueAudio){
+                return searchValueAudio
+            }else {
+                setSearch("YouTube")
+            }
+
             setAudioSearch(false)
+            SpeechRecognition.stopListening()
+            // resetTranscript()
+            audioIncludes.play()
         }
     }, [a, b, d]);
-
-    console.log(searchValue);
+    console.log(searchInputAudioValue);
+    console.log(search);
     const handleClick = () => {
         setHumbergerBtn(!humbergerBtn)
     }
@@ -190,37 +205,79 @@ const Header = (props) => {
     useEffect(() => {
         setSearchValue(searchInputAudioValue)
     }, [searchInputAudioValue]);
-
     useEffect(() => {
         setSearchInputAudioValue(transcript.split(" "))
+    }, [transcript]);
+
+    const handleTypeInput = () => {
+        setSearchValue(" ")
+    }
+
+
+    const handleAudioStart = () => {
+        audioStart.play()
+        setAudioStop(true)
+    }
+    const handleAudioStop = () => {
+        setAudioStop(false)
+        audioStops.play()
+    }
+    const handleStartAudios = () => {
+        setAudioStop(true)
+        audioStart.play()
+    }
+
+    const handleResetAudio = () => {
+        setAudioStop(true)
+        audioReset.play()
+    }
+    useEffect(() => {
+        setASearchInputAudioValue(transcript)
     }, [transcript]);
     return (<>
 
         <header className={`header ${themeColor}`}>
-
+            {/* <button onClick={handleAudioStart}>Audio</button> */}
             <div className={audioSearch ? `d-block searchAudio ${themeColor}` : "d-none"}>
                 <div>
-                    <div>
-                        <div>
+                    <div className='audio__material'>
+                        <div className={`audio__body`}>
 
-                            <span>
+                            <span className='audio__text'>
                                 {transcript.split("").length > 0 ? transcript : 'Gapiring...'}
                             </span>
-                            <button onClick={handleAudioSearch}>
-                                out
+
+                            <i onClick={() => {
+                                SpeechRecognition.stopListening()
+                                handleAudioStop()
+                                handleAudioSearch()
+                                resetTranscript()
+                            }} id="menu" className={`material-icons humburger__menu-icon ${themeColor}`}>close</i>
+                        </div>
+                        <div className='audio__btn'>
+                            <button type="button" onClick={() => {
+                                resetTranscript()
+                                handleResetAudio()
+                            }}>
+                                <i className={`material-icons mic ${themeColor}`}>restart_alt</i>
+                            </button>
+                            <button onClick={() => {
+                                listenContinuously()
+                                handleStartAudios()
+                            }} type="button">
+                                <div className={audioStop ? `border__animation` : "audio__stoop"}>
+                                    <div className='audio__start'>
+                                        <i className={`material-icons mic`}>mic</i>
+                                    </div>
+                                </div>
+                            </button>
+                            <button type="button" onClick={() => {
+                                SpeechRecognition.stopListening()
+                                handleAudioStop()
+                            }}>
+                                <i className={`material-icons mic ${themeColor}`}>mic_off</i>
                             </button>
                         </div>
-                        <div>
-                            <button type="button" onClick={resetTranscript}>Reset</button>
-                            <button type="button" onClick={listenContinuously}>Listen</button>
-                            <button type="button" onClick={SpeechRecognition.stopListening}>Stop</button>
-                        </div>
-                    </div>
-                    <div>
-                        {message}
-                    </div>
-                    <div>
-                        <span>{transcript}</span>
                     </div>
                 </div>
             </div>
@@ -241,10 +298,15 @@ const Header = (props) => {
 
             <div className="search center">
                 <form id='search__form' className={themeColor == "dark" ? "bg__black" : "bg__light"} onSubmit={e => handlesubmit(e)}>
-                    <input  value={searchValue} onChange={e => setSearchValue(e.target.value)} type="text" placeholder={languageHeaderObj?.inputPlaceholder} />
+                    <input className='ali' onClick={handleTypeInput} onChange={e => setSearchValue(e.target.value || transcript)} type="text" placeholder={languageHeaderObj?.inputPlaceholder} />
                     <button className={`${themeColor}`}><i className="material-icons">search</i></button>
                 </form>
-                <i onClick={handleAudioSearch} className={`material-icons mic ${themeColor}`}>mic</i>
+                <i onClick={() => {
+                    handleAudioSearch()
+                    listenContinuously()
+                    handleAudioStart()
+                    resetTranscript()
+                }} className={`material-icons mic ${themeColor}`}>mic</i>
             </div>
 
             <div className={`icons right`}>

@@ -13,7 +13,7 @@ import Chanel from './Pages/AddChanel/Chanel';
 import { useContext } from 'react';
 import { Context } from './Context/HamburgerBtn';
 import Login from './Pages/Login/Login';
-
+import Upload from "./Pages/Upload/Upload"
 function App() {
   const { themeColor, setThemeColor } = useContext(Context)
   return (
@@ -33,6 +33,7 @@ function App() {
               <Route path="/library" element={<Library/>}/>
               <Route path="/chanel" element={<Chanel/>}/>
               <Route path='/login' element={<Login/>}/>
+              <Route path='/up' element={<Upload/>}/>
             </Route>
           </Routes>
         </div>
