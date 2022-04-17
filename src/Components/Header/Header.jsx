@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Context } from '../../Context/HamburgerBtn';
 import youTUbeLanguage from '../Localization/Language';
@@ -20,7 +20,7 @@ import youtubekids from "../../Assets/img/youtubekids.png"
 import youtube from "../../Assets/img/youtube.png"
 import youtubeLogos from "../../Assets/img/youtubeLogos.png"
 const Header = (props) => {
-
+    const { addChannel, setAddChannel } = useContext(Context)
     const { search, setSearch } = useContext(Context)
     const { userAbboutAccount, setUserAbboutAccount } = useContext(Context)
     const [searchValue, setSearchValue] = useState("")
@@ -34,6 +34,9 @@ const Header = (props) => {
     const [locationUser, setLocationUser] = useState(false)
     const [youTubeApps, setYouTubeApps] = useState(false)
     const [keyboard, setKeyboard] = useState(false)
+    const [handleSwitchAccount, setHandleSwitchAccount] = useState(false)
+
+
 
     const handleClick = () => {
         setHumbergerBtn(!humbergerBtn)
@@ -100,7 +103,24 @@ const Header = (props) => {
     const handlePrevKeyboard = () => {
         setKeyboard(!keyboard)
     }
+
+    const handleSwitch = () => {
+        setHandleSwitchAccount(!handleSwitchAccount)
+    }
+
+    const handlePrevSwitchAccount = () => {
+        setHandleSwitchAccount(!handleSwitchAccount)
+    }
     const languageHeaderObj = youTUbeLanguage.header[languages]
+
+    const handleUserAccountCheck = (e) => {
+        const findElement = userAbboutAccount.findIndex(function(element) {
+            return element.userAddEmail == e.userAddEmail
+        })
+
+        const sliceUserCHeck = userAbboutAccount.splice(findElement, 1)
+        setUserAbboutAccount([...userAbboutAccount, ...sliceUserCHeck])
+    }
     return (<>
 
         <header className={`header ${themeColor}`}>
@@ -108,6 +128,8 @@ const Header = (props) => {
                 <button className='humburger__menu' onClick={handleClick}>
                     <i id="menu" className={`material-icons humburger__menu-icon ${themeColor}`}>menu</i>
                 </button>
+
+
 
                 <div onClick={handleClickHome}>
                     <Link className='youtube__logo' to="/">
@@ -237,13 +259,70 @@ const Header = (props) => {
                         </div>
                     </div>
 
-                    <div className={(theme || language || locationUser || keyboard) ? `${themeColor} d-none user__setting-border` : `${themeColor} d-block user__setting-border`}>
+                    <div className={handleSwitchAccount ? `${themeColor} d-block user__setting-border` : `d-none ${themeColor} user__setting-border`}>
                         <div className={"user__accaunt"}>
+                            <i onClick={handlePrevSwitchAccount} className={`material-icons mic ${themeColor}`}>arrow_back</i>
+                            <h2 className='user__name'>
+                                Accounts
+                            </h2>
+                        </div>
+
+                        <div className='user__setting-theme-switch'>
+                            <span className={`${themeColor}`}>
+                                {userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName : userAbboutAccount[0]?.userAddName}
+                            </span>
+                            <br />
+                            <span className='user__switch-account-email'>
+                                {userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddEmail : userAbboutAccount[0]?.userAddEmail}
+                            </span>
+
+                            <hr />
+
+                            <div className={userAbboutAccount.length == 0 ? "d-none user__accaunt-switch" : "d-block user__accaunt-switch"}>
+                                <div id={`#${userAbboutAccount[0]?.accountBg}`} style={userAbboutAccount.length > 0 ? {backgroundColor: `${userAbboutAccount[userAbboutAccount.length - 1]?.accountBg}`} : userAbboutAccount[0]?.accountBg}
+                                className='user__account-icon-switch'>
+                                    {userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName?.split("")[0] : userAbboutAccount[0]?.userAddName?.split("")[0]}
+                                </div>
+
+                                <div>
+                                    <h2 className='user__name'>{userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName : userAbboutAccount[0]?.userAddName}</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <hr className='user__switch-hr' />
+                        <div className='user__other'>
+                            <span className='user__other-desc'>Other accounts</span>
+
+                            {
+                                userAbboutAccount?.slice(0, userAbboutAccount.length - 1).map(i => {
+                                    return <div onClick={e => handleUserAccountCheck(i)} className='user__other-account-email'>
+                                        <span className='user__other-account-addEMail'>{i.userAddEmail}</span>
+                                        <div className={userAbboutAccount.length == 0 ? "d-none user__accaunt-other" : "d-block user__accaunt-other"}>
+                                            <div style={{backgroundColor: `${i.accountBg}`}} className='user__account-icon-switch-other'>
+                                                {i?.userAddName?.split("")[0]}
+                                            </div>
+
+                                            <div>
+                                                <h2 className='user__name'>{i.userAddName}</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                })
+                            }
+                        </div>
+                    </div>
+
+                    <div className={(theme || language || locationUser || keyboard || handleSwitchAccount) ? `${themeColor} d-none user__setting-border` : `${themeColor} d-block user__setting-border`}>
+                        <div className={userAbboutAccount.length == 0 ? "d-none user__accaunt" : "d-block user__accaunt"}>
                             <div className='user__account-icon'>
                                 {userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName?.split("")[0] : userAbboutAccount[0]?.userAddName?.split("")[0]}
+
                             </div>
 
-                            <h2 className='user__name'>{userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName : userAbboutAccount[0]?.userAddName}</h2>
+                            <div>
+                                <h2 className='user__name'>{userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName : userAbboutAccount[0]?.userAddName}</h2>
+                                <a target="_blank" href="https://myaccount.google.com/u/0/?utm_source=YouTubeWeb&tab=rk&utm_medium=act&tab=rk&hl=en&pli=1">Manage your Google Account</a>
+                            </div>
                         </div>
 
                         <div className='user__setting-bottom'>
@@ -260,7 +339,7 @@ const Header = (props) => {
                                     {languageHeaderObj?.chanelUser}
                                 </p>
                             </div>
-                            <div className='user__setting-link'>
+                            <div onClick={handleSwitch} className='user__setting-link'>
                                 <i className={`material-icons mic ${themeColor}`}>account_box</i>
                                 <p className='user__setting-link-desc'>
                                     {languageHeaderObj?.switchUser}
@@ -475,6 +554,10 @@ const Header = (props) => {
                             <p className='user__keyboard-code'>- on numpad or [</p>
                         </div>
                     </div>
+                </div>
+
+                <div className={"user__keyboard-modal-prev d-fixed"}>
+                    <button onClick={handlePrevKeyboard} className='user__keyboard-modal-btn'>DISMISS</button>
                 </div>
             </div>
         </div>

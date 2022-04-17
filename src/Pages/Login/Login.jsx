@@ -9,12 +9,14 @@ const Login = () => {
     const [userName, setUserName] = useState("")
     const [desabled, setDesabled] = useState("disabled")
     const { emailFilter, setEmailFilter } = useContext(Context)
-
+    const runNum = Math.floor(Math.random() * 20)
+    console.log(runNum);
     const handleSubmit = (e) => {
 
         const newAddAccount = {
             userAddEmail: userEmail,
             userAddName: userName,
+            accountBg: runNum == 1 ? "red" : runNum == 2 ? "bluee" : runNum == 3 ? "black" : runNum == 4 ? "green" : runNum == 5 ? "yellow" : runNum == 6 ? "brown" : runNum == 7 ? "deepskyblue" : runNum == 8 ? "magenta" : runNum == 9 ? "chartreuse" : runNum == 10 ? "purple" : runNum == 11 ? "fuchsia" : runNum ==12 ? "lime" : runNum == 13 ? "olive" : runNum == 14 ? "navy" : runNum == 15 ? "teal" : runNum == 16 ? "darkblue" : runNum == 17 ? "darkgray" : runNum == 18 ? "darkorange" : runNum == 19 ? "firebrick" : "maroon"
         }
 
         setUserAbboutAccount([...userAbboutAccount, newAddAccount])

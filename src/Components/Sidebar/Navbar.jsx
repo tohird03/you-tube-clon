@@ -15,6 +15,10 @@ const Navbar = () => {
     const { themeColor, setThemeColor } = useContext(Context)
     const { languages, setLanguages } = useContext(Context)
     const [chanelNames, setChanelName] = useState([])
+
+    const [addHeaderChannelInfo, setAddHeaderChannelInfo] = useState([])
+
+
     const handleClickHome = () => {
         setSearch([])
     }
@@ -35,6 +39,32 @@ const Navbar = () => {
     // }, [addChannel]);
 
     const youTubeNavbarLang = youTUbeLanguage.navbar[languages]
+
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
+            'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
+        }
+    };
+
+    useEffect(() => {
+        addChannel?.map(i => {
+            fetch(`https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${i}`, options)
+                .then(response => response.json())
+                .then(response => setAddHeaderChannelInfo([response, ...addHeaderChannelInfo]))
+                .catch(err => console.error(err));
+        })
+    }, [addChannel]);
+
+    const data = Array.from(new Set(addHeaderChannelInfo.map(JSON.stringify))).map(JSON.parse);
+
+    window.localStorage.getItem("sortData")
+    window.localStorage.setItem("sortData",JSON.stringify(data))
+
+    useEffect(() => {
+        window.localStorage.setItem("sortData",JSON.stringify(data))
+    }, [data]);
     return (
         <div className={humbergerBtn ? `side-bar ${themeColor}` : `side-bar-short ${themeColor}`}>
             <div className={`${themeColor} navbar`}>
@@ -127,9 +157,9 @@ const Navbar = () => {
                 </h3>
 
                 {
-                    chanelNames?.items?.map(i => {
-                        return <NavLink to="/chanel" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
-                            <i className={`material-icons zdfasdff`}>add_circle_outline</i>
+                    data?.map(i => {
+                        return <NavLink to="/hjcbsa" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+
                             <span >Browse channels</span>
                         </NavLink>
                     })

@@ -6,13 +6,13 @@ const Chanel = () => {
     const [chanel, setChanel] = useState([])
     const [chanelFilter, setChanelFilter] = useState([])
     const { addChannel, setAddChannel } = useContext(Context)
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
-            'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
-        }
-    };
+    // const options = {
+    //     method: 'GET',
+    //     headers: {
+    //         'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
+    //         'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
+    //     }
+    // };
 
     // useEffect(() => {
     //     fetch('https://youtube-v31.p.rapidapi.com/search?relatedToVideoId=7ghhRHRP6t4&part=id%2Csnippet&type=video&maxResults=50', options)
@@ -22,9 +22,9 @@ const Chanel = () => {
     // }, []);
 
 
-    // useEffect(() => {
-    //     setChanelFilter(chanel?.items?.filter(i => i.snippet))
-    // }, [chanel]);
+    useEffect(() => {
+        setChanelFilter(chanel?.items?.filter(i => i.snippet))
+    }, [chanel]);
     const handleAddChanel = (e) => {
         console.log(e.target.textContent);
         if (!addChannel.includes(e.target.id)) {
@@ -35,7 +35,7 @@ const Chanel = () => {
             setAddChannel(addChannel.filter(i => i != e.target.id))
         }
     }
-    // console.log(addChannel);
+    console.log(addChannel);
     return (
         <div className='chanelAdd'>
             {
