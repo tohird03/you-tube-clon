@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Context } from '../../Context/HamburgerBtn';
+import logo from "../../Assets/img/logo.png"
 import "../Login/Login.css"
 const Login = () => {
 
@@ -9,6 +10,7 @@ const Login = () => {
     const [userName, setUserName] = useState("")
     const [desabled, setDesabled] = useState("disabled")
     const { emailFilter, setEmailFilter } = useContext(Context)
+    const { themeColor, setThemeColor } = useContext(Context)
     const runNum = Math.floor(Math.random() * 20)
     console.log(runNum);
     const handleSubmit = (e) => {
@@ -34,13 +36,10 @@ const Login = () => {
     }, [userName, userEmail]);
 
     return (
-        <div>
+        <div className={`${themeColor} forms__login`}>
             <div className='forms'>
                 <div className="background">
-                    <div className="shape"></div>
-                    <div className="shape"></div>
-                    <div className="shape"></div>
-                    <div className="shape"></div>
+                    
                 </div>
                 <form className='logon__form'>
 

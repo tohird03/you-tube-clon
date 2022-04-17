@@ -263,6 +263,10 @@
   border-top: none;
 }
 
+.dark .user__accaunt div a {
+  color: rgb(89, 114, 205);
+}
+
 .user__settings-apps {
   position: absolute;
   width: 250px;
@@ -293,6 +297,21 @@
   align-items: center;
   border-bottom: 1px solid rgb(191, 191, 191);
   padding: 16px;
+}
+
+.user__accaunt-add {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  margin-top: 20px;
+  border-top: 1px solid rgb(65 64 64);
+}
+.user__accaunt-logout {
+  margin-left: 5px;
+}
+
+.user__accaunt-add .material-icons {
+  margin-top: 0;
 }
 
 .user__accaunt-switch {
@@ -326,7 +345,7 @@
 
 .user__switch-hr {
   height: 2px;
-  background-color: #d7d7d7;
+  background-color: rgb(65 64 64);;
 }
 
 .user__accaunt-switch::before {
@@ -640,6 +659,10 @@
   background-color: rgba(220, 217, 217, 0.3);
 }
 
+.user__setting-link-add-account {
+  margin-top: 20px;
+}
+
 .light .keyboard {
   background-color: white;
   color: black;
@@ -647,4 +670,61 @@
 .light .keyboard  .user__keyboard-modal-type .user__keyboard-modal-body p{
   background-color: white;
   color: black;
+}
+
+.light .user__other .user__setting-link-add-account {
+  color: black;
+}
+
+.light .search #search__form input::placeholder {
+  color: #8d8d8d;
+  font-weight: bold;
+  font-size: 16px;
+}
+.light .search #search__form input {
+  color: #8d8d8d;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.light .search #search__form input:focus {
+  outline: none;
+  border: none;
+}
+
+.dark .user__other .user__other-desc {
+  color: white;
+}
+
+.dark .user__other .user__setting-link i {
+  background-color: transparent;
+}
+.dark .user__other .user__setting-link p {
+  color: white;
+}
+.dark .user__other .active {
+  background-color: #373737;
+
+}
+
+.user__other-account-email-btn {
+  background-color: transparent;
+  -webkit-touch-callout: none; /* iOS Safari browseri qo'llab quvvatlaydi*/
+    -webkit-user-select: none; /* Safari browseri qo'llab quvvatlaydi*/
+     -khtml-user-select: none; /* Konqueror HTML browseri qo'llab quvvatlaydi*/
+       -moz-user-select: none; /* Firefox browseri qo'llab quvvatlaydi*/
+        -ms-user-select: none; /* Internet Explorer/Edge browseri qo'llab quvvatlaydi*/
+            user-select: none; /* Non-prefixed version, currently
+            supported by Chrome and Opera browseri qo'llab quvvatlaydi*/
+}
+
+.searchAudio {
+  position: absolute;
+  z-index: 2000;
+  width: 600px;
+  height: 350px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #F2F2F2;
 }

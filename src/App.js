@@ -14,7 +14,6 @@ import { useContext } from 'react';
 import { Context } from './Context/HamburgerBtn';
 import Login from './Pages/Login/Login';
 
-
 function App() {
   const { themeColor, setThemeColor } = useContext(Context)
   return (

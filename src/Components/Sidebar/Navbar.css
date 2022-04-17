@@ -156,8 +156,11 @@
     color: black;
     display: inline-block;
     margin: auto;
-    margin-right: 8px;
   }
+
+.side-bar .navbar .nav-link .nav__links .nav__links-shorts {
+  margin-right: 8px;
+}
 
  /* .nav-link:hover {
     background: #f1f0f0;

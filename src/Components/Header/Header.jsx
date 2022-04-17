@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Context } from '../../Context/HamburgerBtn';
 import youTUbeLanguage from '../Localization/Language';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import "../Header/Header.css"
 import Search from '../../Pages/Search/Search';
 import userIcon from "../../Assets/img/user.png"
@@ -28,6 +29,7 @@ const Header = (props) => {
     const { searchPage, setSearchPage } = useContext(Context)
     const { themeColor, setThemeColor } = useContext(Context)
     const { languages, setLanguages } = useContext(Context)
+    const { setEmailFilter } = useContext(Context)
     const [settingsModal, setSettingsModal] = useState(false)
     const [theme, setTheme] = useState(false)
     const [language, setLanguage] = useState(false)
@@ -35,9 +37,21 @@ const Header = (props) => {
     const [youTubeApps, setYouTubeApps] = useState(false)
     const [keyboard, setKeyboard] = useState(false)
     const [handleSwitchAccount, setHandleSwitchAccount] = useState(false)
+    const [audioSearch, setAudioSearch] = useState(false)
+    const [searchInputAudioValue, setSearchInputAudioValue] = useState([])
+    const [a, setA] = useState("")
+    const [b, setB] = useState("")
+    const [d, setD] = useState("")
 
+    useEffect(() => {
+        if(a === "YouTube" && b === "YouTube" && d === "YouTube"){
+            console.log(a, b, d);
+            setSearch(transcript)
+            setAudioSearch(false)
+        }
+    }, [a, b, d]);
 
-
+    console.log(searchValue);
     const handleClick = () => {
         setHumbergerBtn(!humbergerBtn)
     }
@@ -114,16 +128,102 @@ const Header = (props) => {
     const languageHeaderObj = youTUbeLanguage.header[languages]
 
     const handleUserAccountCheck = (e) => {
-        const findElement = userAbboutAccount.findIndex(function(element) {
+        const findElement = userAbboutAccount.findIndex(function (element) {
             return element.userAddEmail == e.userAddEmail
         })
 
         const sliceUserCHeck = userAbboutAccount.splice(findElement, 1)
         setUserAbboutAccount([...userAbboutAccount, ...sliceUserCHeck])
     }
+
+    const handleLogoutAccount = () => {
+        setUserAbboutAccount([])
+        setEmailFilter([])
+    }
+
+    //Speech
+    const handleAudioSearch = () => {
+        setAudioSearch(!audioSearch)
+    }
+
+    const [message, setMessage] = useState('');
+    const commands = [
+
+    ]
+    const {
+        transcript,
+        interimTranscript,
+        finalTranscript,
+        resetTranscript,
+        listening,
+    } = useSpeechRecognition({ commands });
+
+    useEffect(() => {
+        if (finalTranscript !== '') {
+        }
+    }, [interimTranscript, finalTranscript]);
+    if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+        return null;
+    }
+
+    if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+        console.log('Your browser does not support speech recognition software! Try Chrome desktop, maybe?');
+    }
+    const listenContinuously = () => {
+        SpeechRecognition.startListening({
+            continuous: true,
+            language: 'en-GB',
+        });
+    };
+
+    useEffect(() => {
+        const youTube = searchInputAudioValue[searchInputAudioValue?.length - 1]
+        const go = searchInputAudioValue[searchInputAudioValue?.length - 2]
+        const search = searchInputAudioValue[searchInputAudioValue?.length - 3]
+
+        setA(youTube)
+        setB(go)
+        setD(search)
+
+    }, [searchInputAudioValue]);
+
+    useEffect(() => {
+        setSearchValue(searchInputAudioValue)
+    }, [searchInputAudioValue]);
+
+    useEffect(() => {
+        setSearchInputAudioValue(transcript.split(" "))
+    }, [transcript]);
     return (<>
 
         <header className={`header ${themeColor}`}>
+
+            <div className={audioSearch ? `d-block searchAudio ${themeColor}` : "d-none"}>
+                <div>
+                    <div>
+                        <div>
+
+                            <span>
+                                {transcript.split("").length > 0 ? transcript : 'Gapiring...'}
+                            </span>
+                            <button onClick={handleAudioSearch}>
+                                out
+                            </button>
+                        </div>
+                        <div>
+                            <button type="button" onClick={resetTranscript}>Reset</button>
+                            <button type="button" onClick={listenContinuously}>Listen</button>
+                            <button type="button" onClick={SpeechRecognition.stopListening}>Stop</button>
+                        </div>
+                    </div>
+                    <div>
+                        {message}
+                    </div>
+                    <div>
+                        <span>{transcript}</span>
+                    </div>
+                </div>
+            </div>
             <div className="logo left">
                 <button className='humburger__menu' onClick={handleClick}>
                     <i id="menu" className={`material-icons humburger__menu-icon ${themeColor}`}>menu</i>
@@ -140,15 +240,17 @@ const Header = (props) => {
             </div>
 
             <div className="search center">
-                <form className={themeColor == "dark" ? "bg__black" : "bg__light"} onSubmit={e => handlesubmit(e)}>
-                    <input onChange={e => setSearchValue(e.target.value)} type="text" placeholder={languageHeaderObj?.inputPlaceholder} />
+                <form id='search__form' className={themeColor == "dark" ? "bg__black" : "bg__light"} onSubmit={e => handlesubmit(e)}>
+                    <input  value={searchValue} onChange={e => setSearchValue(e.target.value)} type="text" placeholder={languageHeaderObj?.inputPlaceholder} />
                     <button className={`${themeColor}`}><i className="material-icons">search</i></button>
                 </form>
-                <i className={`material-icons mic ${themeColor}`}>mic</i>
+                <i onClick={handleAudioSearch} className={`material-icons mic ${themeColor}`}>mic</i>
             </div>
 
             <div className={`icons right`}>
-                <i className={`material-icons ${themeColor}`}>videocam</i>
+                <button className='material__button'>
+                    <i className={`material-icons ${themeColor}`}>videocam</i>
+                </button>
                 <button onClick={handleYouTubeApps} className='material__button'>
                     <i className={`material-icons ${themeColor}`}>apps</i>
                 </button>
@@ -179,7 +281,9 @@ const Header = (props) => {
                     </a>
                 </div>
 
-                <i className={`material-icons ${themeColor}`}>notifications</i>
+                <button className='material__button'>
+                    <i className={`material-icons ${themeColor}`}>notifications</i>
+                </button>
 
                 <button onClick={handleModalSettings} className={`material__button ${themeColor}`}>
                     <i className={`material-icons display-this ${themeColor}`}>account_circle</i>
@@ -267,7 +371,7 @@ const Header = (props) => {
                             </h2>
                         </div>
 
-                        <div className='user__setting-theme-switch'>
+                        <div className={userAbboutAccount.length >= 1 ? `user__setting-theme-switch d-block` : `user__setting-theme-switch d-none`}>
                             <span className={`${themeColor}`}>
                                 {userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName : userAbboutAccount[0]?.userAddName}
                             </span>
@@ -276,29 +380,29 @@ const Header = (props) => {
                                 {userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddEmail : userAbboutAccount[0]?.userAddEmail}
                             </span>
 
-                            <hr />
-
                             <div className={userAbboutAccount.length == 0 ? "d-none user__accaunt-switch" : "d-block user__accaunt-switch"}>
-                                <div id={`#${userAbboutAccount[0]?.accountBg}`} style={userAbboutAccount.length > 0 ? {backgroundColor: `${userAbboutAccount[userAbboutAccount.length - 1]?.accountBg}`} : userAbboutAccount[0]?.accountBg}
-                                className='user__account-icon-switch'>
+                                <div style={userAbboutAccount.length > 0 ? { backgroundColor: `${userAbboutAccount[userAbboutAccount.length - 1]?.accountBg}` } : userAbboutAccount[0]?.accountBg}
+                                    className='user__account-icon-switch'>
                                     {userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName?.split("")[0] : userAbboutAccount[0]?.userAddName?.split("")[0]}
                                 </div>
 
                                 <div>
                                     <h2 className='user__name'>{userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName : userAbboutAccount[0]?.userAddName}</h2>
                                 </div>
+
                             </div>
                         </div>
-                        <hr className='user__switch-hr' />
+
+                        <hr className={userAbboutAccount.length >= 1 ? `user__switch-hr d-block` : `user__switch-hr d-none`} />
                         <div className='user__other'>
-                            <span className='user__other-desc'>Other accounts</span>
+                            <span className={userAbboutAccount.length > 1 ? `user__other-desc d-block` : `user__other-desc d-none`}>Other accounts</span>
 
                             {
                                 userAbboutAccount?.slice(0, userAbboutAccount.length - 1).map(i => {
-                                    return <div onClick={e => handleUserAccountCheck(i)} className='user__other-account-email'>
+                                    return <div onClick={e => handleUserAccountCheck(i)} className='user__other-account-email user__other-account-email-btn'>
                                         <span className='user__other-account-addEMail'>{i.userAddEmail}</span>
                                         <div className={userAbboutAccount.length == 0 ? "d-none user__accaunt-other" : "d-block user__accaunt-other"}>
-                                            <div style={{backgroundColor: `${i.accountBg}`}} className='user__account-icon-switch-other'>
+                                            <div style={{ backgroundColor: `${i.accountBg}` }} className='user__account-icon-switch-other'>
                                                 {i?.userAddName?.split("")[0]}
                                             </div>
 
@@ -309,12 +413,26 @@ const Header = (props) => {
                                     </div>
                                 })
                             }
+
+                            <NavLink to="/login" className='user__setting-link user__setting-link-add-account'>
+                                <i className={`material-icons mic ${themeColor}`}>person_add</i>
+                                <p className='user__setting-link-desc'>
+                                    {languageHeaderObj?.loginUserYouTubeAccount}
+                                </p>
+                            </NavLink>
+
+                            <div className={userAbboutAccount.length > 0 ? 'user__setting-link user__accaunt-logout d-block' : 'user__setting-link user__accaunt-logout d-none'} onClick={handleLogoutAccount}>
+                                <i className={`material-icons mic ${themeColor}`}>logout</i>
+                                <p className='user__setting-link-desc'>
+                                    {languageHeaderObj?.loginUser}
+                                </p>
+                            </div>
                         </div>
                     </div>
 
                     <div className={(theme || language || locationUser || keyboard || handleSwitchAccount) ? `${themeColor} d-none user__setting-border` : `${themeColor} d-block user__setting-border`}>
                         <div className={userAbboutAccount.length == 0 ? "d-none user__accaunt" : "d-block user__accaunt"}>
-                            <div className='user__account-icon'>
+                            <div style={userAbboutAccount.length > 0 ? { backgroundColor: `${userAbboutAccount[userAbboutAccount.length - 1]?.accountBg}` } : userAbboutAccount[0]?.accountBg} className='user__account-icon'>
                                 {userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName?.split("")[0] : userAbboutAccount[0]?.userAddName?.split("")[0]}
 
                             </div>
@@ -345,7 +463,7 @@ const Header = (props) => {
                                     {languageHeaderObj?.switchUser}
                                 </p>
                             </div>
-                            <div className='user__setting-link'>
+                            <div onClick={handleLogoutAccount} className={userAbboutAccount.length > 0 ? `d-block user__setting-link` : `d-none user__setting-link`}>
                                 <i className={`material-icons mic ${themeColor}`}>logout</i>
                                 <p className='user__setting-link-desc'>
                                     {languageHeaderObj?.loginUser}
@@ -392,7 +510,7 @@ const Header = (props) => {
         </header>
 
         {/* //User keyboard body modal */}
-        <div className={keyboard ? "bg__blur-modal" : ``}></div>
+        <div className={keyboard || audioSearch ? "bg__blur-modal" : ``}></div>
         <div className={themeColor}>
             <div className={keyboard ? `${themeColor} keyboard d-block` : `keyboard d-none ${themeColor}`}>
                 <div className={"user__keyboard-modal d-fixed"}>
