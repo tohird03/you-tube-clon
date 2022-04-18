@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Context } from '../../Context/HamburgerBtn';
 
 const History = () => {
-    const { historySort, setHistorySort } = useContext(Context)
+    // const { historySort, setHistorySort } = useContext(Context)
     const [historyVideo, setHistoryVideo] = useState([])
 
     return (

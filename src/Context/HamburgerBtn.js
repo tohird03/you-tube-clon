@@ -10,6 +10,8 @@ function Provider({children}){
     const localLanguage = JSON.parse(window.localStorage.getItem('language'))
     const localUserAccount = JSON.parse(window.localStorage.getItem('userToken'))
     const localUserAccountEmail = JSON.parse(window.localStorage.getItem('emailFilter'))
+    const localUserVideoUpload = JSON.parse(window.localStorage.getItem('upload'))
+    const localUserModal = JSON.parse(window.localStorage.getItem('uploadModal'))
 
     const [userAbboutAccount, setUserAbboutAccount] = useState(localUserAccount || [])
     const [emailFilter, setEmailFilter] = useState(localUserAccountEmail || [])
@@ -17,6 +19,8 @@ function Provider({children}){
     let [languages, setLanguages] = useState(localLanguage || "uz")
     let [humbergerBtn, setHumbergerBtn] = useState(true)
     let [searchPage, setSearchPage] = useState(true)
+    let [uploadModal, setUploadModal] = useState(localUserModal || false)
+    let [userVideoUpload, setUserViodeUpload] = useState(localUserVideoUpload || false)
     let [search, setSearch] = useState(localSearch || [])
     let [addChannel, setAddChannel] = useState(localChannel || [])
     let [history, setHistory] = useState(localProduct || [])
@@ -24,10 +28,20 @@ function Provider({children}){
 
     window.localStorage.setItem('product', JSON.stringify(history))
     window.localStorage.setItem('addChannel', JSON.stringify(addChannel))
+    window.localStorage.setItem('upload', JSON.stringify(userVideoUpload))
+    window.localStorage.setItem('uploadModal', JSON.stringify(uploadModal))
 
     useEffect(() => {
         window.localStorage.setItem('userToken', JSON.stringify(userAbboutAccount))
     }, [userAbboutAccount]);
+
+    useEffect(() => {
+        window.localStorage.setItem('uploadModal', JSON.stringify(uploadModal))
+    }, [uploadModal]);
+
+    useEffect(() => {
+        window.localStorage.setItem('upload', JSON.stringify(userVideoUpload))
+    }, [userVideoUpload]);
     useEffect(() => {
         window.localStorage.setItem('emailFilter', JSON.stringify(emailFilter))
     }, [emailFilter]);
@@ -53,7 +67,7 @@ function Provider({children}){
     }, [addChannel])
 
     return(
-        <Context.Provider value={{humbergerBtn, setHumbergerBtn, search, setSearch, history, setHistory, searchPage, setSearchPage, themeColor, setThemeColor, addChannel, setAddChannel, themeColor, setThemeColor, languages, setLanguages, userAbboutAccount, setUserAbboutAccount, emailFilter, setEmailFilter}}>
+        <Context.Provider value={{humbergerBtn, setHumbergerBtn, search, setSearch, history, setHistory, searchPage, setSearchPage, themeColor, setThemeColor, addChannel, setAddChannel, themeColor, setThemeColor, languages, setLanguages, userAbboutAccount, setUserAbboutAccount, emailFilter, setEmailFilter, userVideoUpload, setUserViodeUpload, uploadModal, setUploadModal}}>
             {children}
         </Context.Provider>
     )

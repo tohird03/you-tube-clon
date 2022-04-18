@@ -278,6 +278,37 @@ span {
   border: 1px solid rgb(220, 217, 217);
   border-top: none;
 }
+.video__upload {
+  position: absolute;
+  width: 250px;
+  right: 120px;
+  /* margin-left: -182px; */
+  background-color: white;
+  border: 1px solid rgb(220, 217, 217);
+  border-top: none;
+  padding: 10px;
+}
+
+.video__upload-link {
+  display: flex;
+  align-items: center;
+  color: black;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.video__upload .dark .active {
+  background-color: rgb(255 255 255 / 20%);
+}
+
+.video__upload .dark .active i {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.dark .video__upload-link {
+  color: white;
+}
 
 .user__settings-none {
   display: none;
@@ -922,3 +953,5 @@ span {
   color: #ffffff;
   background-color: transparent;
 }
+
+/* .video__upload */

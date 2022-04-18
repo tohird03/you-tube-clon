@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { Context } from '../../Context/HamburgerBtn';
 import youTUbeLanguage from '../Localization/Language';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import "../Header/Header.css"
+import "../ChannelHeader/ChannelHeader.scss"
 import Search from '../../Pages/Search/Search';
 import userIcon from "../../Assets/img/user.png"
 import addUser from "../../Assets/img/add-user.png"
@@ -20,8 +20,6 @@ import youtubemusic from "../../Assets/img/youtubemusic.png"
 import youtubekids from "../../Assets/img/youtubekids.png"
 import youtube from "../../Assets/img/youtube.png"
 import youtubeLogos from "../../Assets/img/youtubeLogos.png"
-import live from '../../Assets/img/live-dark.png';
-import liveLight from '../../Assets/img/live-light.png';
 const Header = (props) => {
     const { addChannel, setAddChannel } = useContext(Context)
     const { search, setSearch } = useContext(Context)
@@ -32,8 +30,7 @@ const Header = (props) => {
     const { themeColor, setThemeColor } = useContext(Context)
     const { languages, setLanguages } = useContext(Context)
     const { userVideoUpload, setUserViodeUpload } = useContext(Context)
-    const { emailFilter, setEmailFilter } = useContext(Context)
-    const { uploadModal, setUploadModal } = useContext(Context)
+    const { setEmailFilter } = useContext(Context)
     const [settingsModal, setSettingsModal] = useState(false)
     const [theme, setTheme] = useState(false)
     const [language, setLanguage] = useState(false)
@@ -42,8 +39,8 @@ const Header = (props) => {
     const [keyboard, setKeyboard] = useState(false)
     const [handleSwitchAccount, setHandleSwitchAccount] = useState(false)
     const [audioSearch, setAudioSearch] = useState(false)
-    const [audioStop, setAudioStop] = useState(true)
     const [videoUpload, setVideoUpload] = useState(false)
+    const [audioStop, setAudioStop] = useState(true)
     const [searchInputAudioValue, setSearchInputAudioValue] = useState([])
     const [asearchInputAudioValue, setASearchInputAudioValue] = useState([])
     const [a, setA] = useState("")
@@ -58,9 +55,9 @@ const Header = (props) => {
         if (a === "YouTube" && b === "YouTube" && d === "YouTube") {
             const searchValueAudio = setSearch(transcript.split(" ")?.filter(i => i ? i !== "YouTube" : "YouTube").join(" "))
 
-            if (searchValueAudio) {
+            if(searchValueAudio){
                 return searchValueAudio
-            } else {
+            }else {
                 setSearch("YouTube")
             }
 
@@ -145,11 +142,6 @@ const Header = (props) => {
     const handlePrevSwitchAccount = () => {
         setHandleSwitchAccount(!handleSwitchAccount)
     }
-
-    const handleVideoUpload = () => {
-        setVideoUpload(!videoUpload)
-    }
-
     const languageHeaderObj = youTUbeLanguage.header[languages]
 
     const handleUserAccountCheck = (e) => {
@@ -241,152 +233,48 @@ const Header = (props) => {
         setAudioStop(true)
         audioReset.play()
     }
-
-    const handleUserVideo = () => {
-        setUserViodeUpload(true)
-        setUploadModal(true)
-    }
     useEffect(() => {
         setASearchInputAudioValue(transcript)
     }, [transcript]);
+
+    const handleVideoUpload = () => {
+        setUserViodeUpload(false)
+    }
     return (<>
 
-        <header className={`header ${themeColor}`}>
-            {/* <button onClick={handleAudioStart}>Audio</button> */}
-            <div className={audioSearch ? `d-block searchAudio ${themeColor}` : "d-none"}>
-                <div>
-                    <div className='audio__material'>
-                        <div className={`audio__body`}>
-
-                            <span className='audio__text'>
-                                {transcript.split("").length > 0 ? transcript : 'Gapiring...'}
-                            </span>
-
-                            <i onClick={() => {
-                                SpeechRecognition.stopListening()
-                                handleAudioStop()
-                                handleAudioSearch()
-                                resetTranscript()
-                            }} id="menu" className={`material-icons humburger__menu-icon ${themeColor}`}>close</i>
-                        </div>
-                        <div className='audio__btn'>
-                            <button type="button" onClick={() => {
-                                resetTranscript()
-                                handleResetAudio()
-                            }}>
-                                <i className={`material-icons mic ${themeColor}`}>restart_alt</i>
-                            </button>
-                            <button onClick={() => {
-                                listenContinuously()
-                                handleStartAudios()
-                            }} type="button">
-                                <div className={audioStop ? `border__animation` : "audio__stoop"}>
-                                    <div className='audio__start'>
-                                        <i className={`material-icons mic`}>mic</i>
-                                    </div>
-                                </div>
-                            </button>
-                            <button type="button" onClick={() => {
-                                SpeechRecognition.stopListening()
-                                handleAudioStop()
-                            }}>
-                                <i className={`material-icons mic ${themeColor}`}>mic_off</i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <header className={`header channel__header ${themeColor}`}>
 
             <div className="logo left">
                 <button className='humburger__menu' onClick={handleClick}>
                     <i id="menu" className={`material-icons humburger__menu-icon ${themeColor}`}>menu</i>
                 </button>
 
-
-
                 <div onClick={handleClickHome}>
                     <Link className='youtube__logo' to="/">
                         <img className='logo' width="28" src={youtubeLogos} alt="" />
-                        <h2 className='youtube__logoName'>YouTube</h2>
+                        <h2 className='youtube__logoName'>Studio</h2>
                     </Link>
                 </div>
             </div>
 
             <div className="search center">
                 <form id='search__form' className={themeColor == "dark" ? "bg__black" : "bg__light"} onSubmit={e => handlesubmit(e)}>
-                    <input className='ali' onClick={handleTypeInput} onChange={e => setSearchValue(e.target.value || transcript)} type="text" placeholder={languageHeaderObj?.inputPlaceholder} />
+                    <input className='ali' type="text" placeholder={"Search across your channel"} />
                     <button className={`${themeColor}`}><i className="material-icons">search</i></button>
                 </form>
-                <i onClick={() => {
-                    handleAudioSearch()
-                    listenContinuously()
-                    handleAudioStart()
-                    resetTranscript()
-                }} className={`material-icons mic ${themeColor}`}>mic</i>
             </div>
 
-            <div className={`icons right`}>
-                <button onClick={handleVideoUpload} className='material__button'>
-                    <i className={`material-icons ${themeColor}`}>videocam</i>
-                </button>
-
-                <div className={videoUpload ? `${themeColor} d-block video__upload` : "d-none"}>
-                    <div className={`${themeColor}`}>
-                        {
-                            emailFilter.length > 0 ? <NavLink onClick={handleUserVideo} className="video__upload-link" to={`/channelvideo`}>
-                                <i className={`material-icons ${themeColor}`}>smart_display</i>
-                                <h2 className='user__name'>Upload video</h2>
-                            </NavLink> : <NavLink className="video__upload-link" to={`/login`}>
-                                <i className={`material-icons ${themeColor}`}>smart_display</i>
-                                <h2 className='user__name'>Upload video</h2>
-                            </NavLink>
-                        }
-                        <NavLink className="video__upload-link" to="live">
-                            <img className='link__icon' width="24" height="24" src={themeColor == "dark" ? liveLight : live} />
-                            <h2 className='user__name'>Go live</h2>
-                        </NavLink>
-                    </div>
-                </div>
-
-                <button onClick={handleYouTubeApps} className='material__button'>
-                    <i className={`material-icons ${themeColor}`}>apps</i>
-                </button>
-
-                <div className={youTubeApps ? `user__settings-apps ${themeColor}` : ` ${themeColor} user__settings-none`}>
-                    <a href='https://tv.youtube.com/welcome/?utm_source=youtube_web&utm_medium=ep&utm_campaign=home&ve=34273&utm_servlet=prod' target="_blank" className={"user__accaunt"}>
-                        <img onClick={handlePrevTheme} className='prev__btn' src={youtubetv} alt="" />
-
-                        <h2 className='user__name'>{languageHeaderObj?.youTubeTv}</h2>
-                    </a>
-
-                    <a href='https://music.youtube.com/coming-soon/' target="_blank" className={"user__accaunt"}>
-                        <img onClick={handlePrevTheme} className='prev__btn' src={youtubemusic} alt="" />
-
-                        <h2 className='user__name'>{languageHeaderObj?.youTubeMusic}</h2>
-                    </a>
-
-                    <a href='https://www.youtube.com/kids/' target="_blank" className={"user__accaunt"}>
-                        <img onClick={handlePrevTheme} className='prev__btn' src={youtubekids} alt="" />
-
-                        <h2 className='user__name'>{languageHeaderObj?.youTubeChild}</h2>
-                    </a>
-
-                    <a href='https://artists.youtube.com/' target="_blank" className={"user__accaunt"}>
-                        <img onClick={handlePrevTheme} className='prev__btn' src={youtube} alt="" />
-
-                        <h2 className='user__name'>{languageHeaderObj?.youTubeArtist}</h2>
-                    </a>
-                </div>
-
-                <button className='material__button'>
-                    <i className={`material-icons ${themeColor}`}>notifications</i>
+            <div className={`icons right upload`}>
+                <button className={`material__button upload__button ${themeColor}`}>
+                    <i className={`material-icons upload__icon ${themeColor}`}>videocam</i>
+                    CREATE
                 </button>
 
                 <button onClick={handleModalSettings} className={`material__button ${themeColor}`}>
                     <i className={`material-icons display-this ${themeColor}`}>account_circle</i>
                 </button>
 
-                <div className={settingsModal ? `${themeColor} user__settings` : ` ${themeColor} user__settings-none`}>
+                <div className={settingsModal ? `${themeColor} upload__settings user__settings` : ` ${themeColor} user__settings-none`}>
                     <div className={theme ? `d-block ${themeColor} user__setting-border` : `d-none ${themeColor} user__setting-border`}>
                         <div className={"user__accaunt"}>
                             <i onClick={handlePrevTheme} className={`material-icons mic ${themeColor}`}>arrow_back</i>
@@ -527,7 +415,7 @@ const Header = (props) => {
                         </div>
                     </div>
 
-                    <div className={(theme || language || locationUser || keyboard || handleSwitchAccount || videoUpload) ? `${themeColor} d-none user__setting-border` : `${themeColor} d-block user__setting-border`}>
+                    <div className={(theme || language || locationUser || keyboard || handleSwitchAccount) ? `${themeColor} d-none user__setting-border` : `${themeColor} d-block user__setting-border`}>
                         <div className={userAbboutAccount.length == 0 ? "d-none user__accaunt" : "d-block user__accaunt"}>
                             <div style={userAbboutAccount.length > 0 ? { backgroundColor: `${userAbboutAccount[userAbboutAccount.length - 1]?.accountBg}` } : userAbboutAccount[0]?.accountBg} className='user__account-icon'>
                                 {userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName?.split("")[0] : userAbboutAccount[0]?.userAddName?.split("")[0]}
@@ -542,18 +430,19 @@ const Header = (props) => {
 
                         <div className='user__setting-bottom'>
 
-                            <NavLink to="/login" className='user__setting-link'>
-                                <i className={`material-icons mic ${themeColor}`}>login</i>
-                                <p className='user__setting-link-desc'>
-                                    {languageHeaderObj?.loginUserYouTubeAccount}
-                                </p>
-                            </NavLink>
                             <div className='user__setting-link'>
                                 <i className={`material-icons mic ${themeColor}`}>account_circle</i>
                                 <p className='user__setting-link-desc'>
                                     {languageHeaderObj?.chanelUser}
                                 </p>
                             </div>
+
+                            <NavLink onClick={handleVideoUpload} to="/" className='user__setting-link'>
+                                <i style={{fontSize: "20px", marginRight: "12px", padding: "0px 2px 0px 2px"}} class="fa fa-youtube-play"></i>
+                                <p className='user__setting-link-desc'>
+                                    YouTube
+                                </p>
+                            </NavLink>
                             <div onClick={handleSwitch} className='user__setting-link'>
                                 <i className={`material-icons mic ${themeColor}`}>account_box</i>
                                 <p className='user__setting-link-desc'>

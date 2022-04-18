@@ -94,7 +94,9 @@ const Library = () => {
                 </div>
                 <p className='library__user-name'>
                     <div>
-                        <h2 className='user__name'>{userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName : userAbboutAccount[0]?.userAddName}</h2>
+                        <h2 className='user__name'>
+                            {userAbboutAccount.length > 0 ? userAbboutAccount[userAbboutAccount.length - 1]?.userAddName : userAbboutAccount[0]?.userAddName}
+                        </h2>
                     </div>
                 </p>
 

@@ -8,20 +8,20 @@ const Content = () => {
     const [video, setVideo] = useState([])
     const { search, setSearch } = useContext(Context)
     const { searchPage, setSearchPage } = useContext(Context)
-    // const options = {
-    //     method: 'GET',
-    //     headers: {
-    //         'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
-    //         'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
-    //     }
-    // };
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
+            'X-RapidAPI-Key': '7b77d20fbamshbbf1cf1322031e1p1c95d3jsn7edeeca070d0'
+        }
+    };
 
-    // useEffect(() => {
-    //     fetch('https://youtube-search-and-download.p.rapidapi.com/trending?type=C%20g%2C%20n%2C%20mo&hl=en&gl=US', options)
-    //         .then(response => response.json())
-    //         .then(response => setVideo(response))
-    //         .catch(err => console.error(err));
-    // }, []);
+    useEffect(() => {
+        fetch('https://youtube-search-and-download.p.rapidapi.com/trending?type=C%20g%2C%20n%2C%20mo&hl=en&gl=US', options)
+            .then(response => response.json())
+            .then(response => setVideo(response))
+            .catch(err => console.error(err));
+    }, []);
 
      return (
         <>

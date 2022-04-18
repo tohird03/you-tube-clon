@@ -14,11 +14,13 @@ const Video = () => {
     const { history, setHistory } = useContext(Context)
     const { search, setSearch } = useContext(Context)
     const [commentNext, setCommentNext] = useState("")
+
+
     const options = {
         method: 'GET',
         headers: {
             'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
-            'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
+            'X-RapidAPI-Key': '7b77d20fbamshbbf1cf1322031e1p1c95d3jsn7edeeca070d0'
         }
     };
 
@@ -28,10 +30,8 @@ const Video = () => {
             .then(response => setComents(response))
             .catch(err => console.error(err));
     }, [x]);
-
     // ///
     useEffect(() => {
-        history.push(x)
         fetch(`https://youtube-search-and-download.p.rapidapi.com/channel?id=${x.productId}&next=4qmFsgKFARIYVUNpVEdLQTlXMEcwVEw4SG03VWZfdTlBGjpFZ1oyYVdSbGIzTVlBeUFBTUFFNEFlb0RGa05uUVZORFoycHdNazVFTkRWT2VVcHNhMmR2VFdjJTNEmgIsYnJvd3NlLWZlZWRVQ2lUR0tBOVcwRzBUTDhIbTdVZl91OUF2aWRlb3MxMDI%253D&sort=n`, options)
             .then(response => response.json())
             .then(response => setChanelVideo(response))
@@ -43,7 +43,7 @@ const Video = () => {
         method: 'GET',
         headers: {
             'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
-            'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
+            'X-RapidAPI-Key': '7b77d20fbamshbbf1cf1322031e1p1c95d3jsn7edeeca070d0'
         }
     };
 
@@ -60,7 +60,7 @@ const Video = () => {
         method: 'GET',
         headers: {
             'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
-            'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
+            'X-RapidAPI-Key': '7b77d20fbamshbbf1cf1322031e1p1c95d3jsn7edeeca070d0'
         }
     };
 
@@ -71,6 +71,9 @@ const Video = () => {
             .catch(err => console.error(err));
     }, []);
 
+    useEffect(() => {
+        history.push(searchResultInfo)
+    }, [searchResultInfo]);
     return (
         <div className='info'>
             <div id='video__content' className='info__content'>
