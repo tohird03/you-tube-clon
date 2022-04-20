@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import "../Explore/Explore.scss"
 import notVideo from "../../Assets/img/not.png"
 import trend from "../../Assets/img/trend1.png"
@@ -10,6 +10,7 @@ import news from "../../Assets/img/news.png"
 import sports from "../../Assets/img/sports.png"
 import learning from "../../Assets/img/learning.png"
 import fashion from "../../Assets/img/fashion.png"
+import { Context } from '../../Context/HamburgerBtn';
 const Explore = () => {
 
     const handleClick = (e) => {
@@ -17,20 +18,28 @@ const Explore = () => {
     }
 
     const [video, setVideo] = useState([])
-    // const options = {
-    //     method: 'GET',
-    //     headers: {
-    //         'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
-    //         'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
-    //     }
-    // };
+    const { search, setSearch } = useContext(Context)
+    const { searchPage, setSearchPage } = useContext(Context)
+    const { history, setHistory } = useContext(Context)
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
+            'X-RapidAPI-Key': 'b58c9764e3mshec61f233fed968ep1958fbjsn9edf982a6081'
+        }
+    };
 
-    // useEffect(() => {
-    //     fetch('https://youtube-search-and-download.p.rapidapi.com/trending?type=C%20g%2C%20n%2C%20mo&hl=en&gl=US', options)
-    //         .then(response => response.json())
-    //         .then(response => setVideo(response))
-    //         .catch(err => console.error(err));
-    // }, []);
+    useEffect(() => {
+        fetch('https://youtube-search-and-download.p.rapidapi.com/trending?type=C%20g%2C%20n%2C%20mo&hl=en&gl=US', options)
+            .then(response => response.json())
+            .then(response => setVideo(response))
+            .catch(err => console.error(err));
+    }, []);
+
+    const hanldeHistory = (e) => {
+        history.unshift(e.target.id)
+        window.localStorage.setItem('product', JSON.stringify(history))
+    }
 
     return (
         <div className='explore'>
@@ -69,38 +78,36 @@ const Explore = () => {
                 </div>
             </div>
 
-            <div className="videos">
+            <div className="videos explore__content">
 
                 {
                     video?.contents?.map(i => {
-                        return <Link key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}`}>
-                            <div className="video">
-                                <div className="thumbnail">
-                                    <a href="https://www.youtube.com/">
-                                        <img src={i.video.thumbnails.map(i => {
+                        console.log(i);
+                        const id = `${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`
+                        return <NavLink onClick={hanldeHistory} id={id} key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`}>
+                            <div id={id} className="video explore__video">
+                                <div id={id} className="thumbnail explore__img">
+                                    <p id={id}>
+                                        <img id={id} src={i.video.thumbnails.map(i => {
                                             return i.url
                                         }) || notVideo} alt="" />
-                                    </a>
+                                    </p>
                                 </div>
 
-                                <div className="details">
-                                    <div className="author">
-                                        <img src={i.video.thumbnails[0].url}
-                                            alt="" />
-                                    </div>
-                                    <div className="title">
-                                        <h3>
+                                <div id={id} className="details">
+                                    <div id={id} className="title esplore__heading">
+                                        <h3 className='' id={id}>
                                             {i.video.title}
                                         </h3>
-                                        <a href="">
+                                        <a id={id} href="">
                                             {i.video.channelName}
                                         </a>
-                                        <span> {i.video.viewCountText} • {i.video.publishedTimeText} </span>
+                                        <span id={id}> {i.video.viewCountText} • {i.video.publishedTimeText} </span>
                                     </div>
                                 </div>
 
                             </div>
-                        </Link>
+                        </NavLink>
 
                     })
                 }

@@ -20,6 +20,7 @@ const Video = () => {
 
     const [dislike, setDislike] = useState(false)
     const [shareModal, setShareModal] = useState(false)
+    const [copy, setCopy] = useState(false)
 
     const localUserLike = JSON.parse(window.localStorage.getItem('likeBtn'))
     const [like, setLike] = useState(localUserLike || false)
@@ -103,7 +104,26 @@ const Video = () => {
             window.localStorage.setItem('like', JSON.stringify(chanelVideoNext))
         }
     }, [like]);
-    console.log(x);
+
+    const handleReply = () => {
+        setShareModal(!shareModal)
+    }
+
+    function handleClick(e) {
+
+        if(e.target.className == "copy__btn"){
+            console.log(e);
+            navigator.clipboard.writeText(e.target.id);
+            setCopy(true)
+        }
+
+        setTimeout(() => {
+            setCopy(false)
+        }, 1000);
+      }
+
+
+
     return (
         <div className='info'>
             <div id='video__content' className='info__content'>
@@ -118,14 +138,14 @@ const Video = () => {
 
                     {/* //share modal */}
                     <div className={shareModal ? "bg__blur-modal" : ``}></div>
-                    <div className='share__modal'>
+                    <div className={shareModal ? `share__modal` : "share__modal d-none"}>
                         <div className='share__header'>
                             <p>Share</p>
-                            <i className={`material-icons mic ${themeColor}`}>
+                            <i onClick={handleReply} className={`material-icons mic ${themeColor}`}>
                                 close
                             </i>
                         </div>
-                        <div className='share__caruse'>
+                        <div  className='share__caruse'>
                             {/* <a className='prev__btn' href='#1'>
                                 <i className={`material-icons mic ${themeColor}`}>
                                 arrow_back_ios_new
@@ -205,6 +225,11 @@ const Video = () => {
                                 </i>
                             </a> */}
                         </div>
+
+                        <div onClick={handleClick} className='copy'>
+                            <p className={copy ? "bg__blue" : "bg__transparrent"}>{`https://youtu.be/${x.id}`}</p>
+                            <button id={`https://youtu.be/${x.id}`}  className='copy__btn'>{copy ? "COPYED" : "COPY"}</button>
+                        </div>
                     </div>
 
                     <div>
@@ -220,7 +245,7 @@ const Video = () => {
                                 {dislike ? "thumb_down" : "thumb_down_off_alt"}
                             </i>
                         </button>
-                        <button>
+                        <button onClick={handleReply}>
                             <i className={`material-icons mic ${themeColor}`}>reply</i>
                         </button>
                         <button>

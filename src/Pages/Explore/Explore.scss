@@ -35,4 +35,24 @@
         color: black;
         font-weight: 500;
     }
+
+    &__video {
+        display: flex;
+        width: 100%;
+
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__img {
+        width: 246px;
+        height: 136;
+    }
+
+    .details &__heading h3 {
+        font-size: 40px;
+    }
 }
