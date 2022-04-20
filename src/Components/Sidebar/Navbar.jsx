@@ -143,12 +143,12 @@ const Navbar = () => {
                     </span>
                 </a>
 
-                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                <NavLink to="/like" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <i className={`material-icons ${themeColor}`}>thumb_up</i>
                     <span >
                         {youTubeNavbarLang?.likedVideosLang}
                     </span>
-                </a>
+                </NavLink>
 
                 <hr className={humbergerBtn ? "d-block" : "d-none"} />
 

@@ -9,16 +9,21 @@ const Video = () => {
     const [video, setVideo] = useState([])
     const [coments, setComents] = useState([])
     const [chanelVideo, setChanelVideo] = useState([])
-    const [chanelVideoNext, setChanelVideoNext] = useState([])
+
     const [searchResultInfo, setSearchResultInfo] = useState([])
     const [searchResultInfoFilter, setSearchResultInfoFilter] = useState([])
     const { history, setHistory } = useContext(Context)
+    const { chanelVideoNext, setChanelVideoNext } = useContext(Context)
     const { search, setSearch } = useContext(Context)
     const [commentNext, setCommentNext] = useState("")
     const { themeColor, setThemeColor } = useContext(Context)
-    const [like, setLike] = useState(false)
+
     const [dislike, setDislike] = useState(false)
     const [shareModal, setShareModal] = useState(false)
+
+    const localUserLike = JSON.parse(window.localStorage.getItem('likeBtn'))
+    const [like, setLike] = useState(localUserLike || false)
+    window.localStorage.setItem('likeBtn', JSON.stringify(like))
     const options = {
         method: 'GET',
         headers: {
@@ -78,12 +83,27 @@ const Video = () => {
     const hanldeLike = () => {
         setLike(!like)
         setDislike(false)
+
+
     }
+
     const hadleDislike = () => {
         setDislike(!dislike)
         setLike(false)
+
     }
 
+    useEffect(() => {
+        if (like) {
+            chanelVideoNext.push(x)
+            window.localStorage.setItem('like', JSON.stringify(chanelVideoNext))
+        } else {
+            const foundElement = chanelVideoNext.findIndex(i => i.id == x.id)
+            chanelVideoNext.splice(foundElement, 1)
+            window.localStorage.setItem('like', JSON.stringify(chanelVideoNext))
+        }
+    }, [like]);
+    console.log(x);
     return (
         <div className='info'>
             <div id='video__content' className='info__content'>

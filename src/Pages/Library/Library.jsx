@@ -10,6 +10,18 @@ import { Context } from '../../Context/HamburgerBtn';
 const Library = () => {
     const { themeColor, setThemeColor } = useContext(Context)
     const { userAbboutAccount, setUserAbboutAccount } = useContext(Context)
+    const { history, setHistory } = useContext(Context)
+    
+    var uniq = history.map((name) => {
+        return { count: 1, name: name }
+    })
+        .reduce((a, b) => {
+            a[b.name] = (a[b.name] || 0) + b.count
+            return a
+        }, {})
+
+    var sorted = Object.keys(uniq).sort((a, b) => uniq[a] < uniq[b])
+
     return (
         <div className={`library`}>
             <div className='library__types'>

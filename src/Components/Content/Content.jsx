@@ -8,7 +8,7 @@ const Content = () => {
     const [video, setVideo] = useState([])
     const { search, setSearch } = useContext(Context)
     const { searchPage, setSearchPage } = useContext(Context)
-    // const { history, setHistory } = useContext(Context)
+    const { history, setHistory } = useContext(Context)
     const options = {
         method: 'GET',
         headers: {
@@ -24,7 +24,12 @@ const Content = () => {
             .catch(err => console.error(err));
     }, []);
 
-     return (
+    const hanldeHistory = (e) => {
+        history.unshift(e.target.id)
+        window.localStorage.setItem('product', JSON.stringify(history))
+    }
+
+    return (
         <>
             <div className="hhh">
                 <button className='trends'>Music</button>
@@ -41,29 +46,31 @@ const Content = () => {
 
                 {
                     video?.contents?.map(i => {
-                        return <NavLink  key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}`}>
-                            <div className="video">
-                                <div className="thumbnail">
-                                    <a href="https://www.youtube.com/">
-                                        <img src={i.video.thumbnails.map(i => {
+                        console.log(i);
+                        const id = `${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`
+                        return <NavLink onClick={hanldeHistory} id={id} key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`}>
+                            <div id={id} className="video">
+                                <div id={id} className="thumbnail">
+                                    <p id={id}>
+                                        <img id={id} src={i.video.thumbnails.map(i => {
                                             return i.url
                                         }) || notVideo} alt="" />
-                                    </a>
+                                    </p>
                                 </div>
 
-                                <div className="details">
-                                    <div className="author">
-                                        <img src={i.video.thumbnails[0].url}
+                                <div id={id} className="details">
+                                    <div id={id} className="author">
+                                        <img id={id} src={i.video.thumbnails[0].url}
                                             alt="" />
                                     </div>
-                                    <div className="title">
-                                        <h3>
+                                    <div id={id} className="title">
+                                        <h3 id={id}>
                                             {i.video.title}
                                         </h3>
-                                        <a href="">
+                                        <a id={id} href="">
                                             {i.video.channelName}
                                         </a>
-                                        <span> {i.video.viewCountText} • {i.video.publishedTimeText} </span>
+                                        <span id={id}> {i.video.viewCountText} • {i.video.publishedTimeText} </span>
                                     </div>
                                 </div>
 
@@ -75,6 +82,8 @@ const Content = () => {
 
                 {/* https://www.youtube.com/watch?v=zpNZ6GxLlDI */}
             </div>
+
+            
         </>
     );
 }
