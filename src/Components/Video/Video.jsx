@@ -11,11 +11,14 @@ const Video = () => {
     const [chanelVideo, setChanelVideo] = useState([])
     const [chanelVideoNext, setChanelVideoNext] = useState([])
     const [searchResultInfo, setSearchResultInfo] = useState([])
+    const [searchResultInfoFilter, setSearchResultInfoFilter] = useState([])
     const { history, setHistory } = useContext(Context)
     const { search, setSearch } = useContext(Context)
     const [commentNext, setCommentNext] = useState("")
-
-
+    const { themeColor, setThemeColor } = useContext(Context)
+    const [like, setLike] = useState(false)
+    const [dislike, setDislike] = useState(false)
+    const [shareModal, setShareModal] = useState(false)
     const options = {
         method: 'GET',
         headers: {
@@ -25,6 +28,7 @@ const Video = () => {
     };
 
     useEffect(() => {
+
         fetch(`https://youtube-search-and-download.p.rapidapi.com/video/comments?id=${x.id}`, options)
             .then(response => response.json())
             .then(response => setComents(response))
@@ -55,7 +59,6 @@ const Video = () => {
     }, []);
 
     //view
-
     const optionsVideoInfo = {
         method: 'GET',
         headers: {
@@ -71,9 +74,16 @@ const Video = () => {
             .catch(err => console.error(err));
     }, []);
 
-    useEffect(() => {
-        history.push(searchResultInfo)
-    }, [searchResultInfo]);
+
+    const hanldeLike = () => {
+        setLike(!like)
+        setDislike(false)
+    }
+    const hadleDislike = () => {
+        setDislike(!dislike)
+        setLike(false)
+    }
+
     return (
         <div className='info'>
             <div id='video__content' className='info__content'>
@@ -81,8 +91,122 @@ const Video = () => {
                 </iframe>
                 <h3 className='info__video-title'>{x.title}</h3>
 
-                <div>
-                    <span className='info__video-about'> {searchResultInfo?.items?.map(i => i?.statistics?.viewCount)} views • {x?.publishedTimeText} </span>
+                <div className='video__subscribe'>
+                    <div>
+                        <span className='info__video-about'> {searchResultInfo?.items?.map(i => i?.statistics?.viewCount)} views • {x?.publishedTimeText} </span>
+                    </div>
+
+                    {/* //share modal */}
+                    <div className={shareModal ? "bg__blur-modal" : ``}></div>
+                    <div className='share__modal'>
+                        <div className='share__header'>
+                            <p>Share</p>
+                            <i className={`material-icons mic ${themeColor}`}>
+                                close
+                            </i>
+                        </div>
+                        <div className='share__caruse'>
+                            {/* <a className='prev__btn' href='#1'>
+                                <i className={`material-icons mic ${themeColor}`}>
+                                arrow_back_ios_new
+                                </i>
+                            </a>
+                            <a id='1' target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a id='2' target="_blank" href='https://www.facebook.com'>
+                                <div className='share__link'>f</div>
+                                <span>Facebook</span>
+                            </a>
+                            <a className='next__btn' href='#2'>
+                                <i className={`material-icons mic ${themeColor}`}>
+                                    arrow_forward_ios
+                                </i>
+                            </a> */}
+                        </div>
+                    </div>
+
+                    <div>
+                        <button onClick={hanldeLike}>
+                            <i className={`material-icons mic ${themeColor}`}>
+                                {
+                                    like ? "thumb_up" : "thumb_up_off_alt"
+                                }
+                            </i>
+                        </button>
+                        <button onClick={hadleDislike}>
+                            <i className={`material-icons mic ${themeColor}`}>
+                                {dislike ? "thumb_down" : "thumb_down_off_alt"}
+                            </i>
+                        </button>
+                        <button>
+                            <i className={`material-icons mic ${themeColor}`}>reply</i>
+                        </button>
+                        <button>
+                            <i className={`material-icons mic ${themeColor}`}>content_cut</i>
+                        </button>
+                    </div>
                 </div>
 
                 <hr className='hr' />
@@ -99,9 +223,6 @@ const Video = () => {
                                     <h3 className='info__desc-heading'>
                                         {i?.authorName}
                                     </h3>
-                                    {/* <a href="">
-                                            {i?.video.channelName}
-                                        </a> */}
                                     <span>{i?.publishedTimeText} </span>
                                 </div>
 

@@ -246,6 +246,10 @@ const Header = (props) => {
         setUserViodeUpload(true)
         setUploadModal(true)
     }
+
+    const handleValidator = () => {
+        alert("Video joylash uchun avval ro'yxatdan o'ting va qayta urining")
+    }
     useEffect(() => {
         setASearchInputAudioValue(transcript)
     }, [transcript]);
@@ -336,7 +340,7 @@ const Header = (props) => {
                             emailFilter.length > 0 ? <NavLink onClick={handleUserVideo} className="video__upload-link" to={`/channelvideo`}>
                                 <i className={`material-icons ${themeColor}`}>smart_display</i>
                                 <h2 className='user__name'>Upload video</h2>
-                            </NavLink> : <NavLink className="video__upload-link" to={`/login`}>
+                            </NavLink> : <NavLink onClick={handleValidator} className="video__upload-link" to={`/login`}>
                                 <i className={`material-icons ${themeColor}`}>smart_display</i>
                                 <h2 className='user__name'>Upload video</h2>
                             </NavLink>

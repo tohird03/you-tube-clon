@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react';
 import "../Content/Content.css"
 import notVideo from "../../Assets/img/not.png"
-import { Link, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { Context } from '../../Context/HamburgerBtn';
 import Search from '../../Pages/Search/Search';
 const Content = () => {
     const [video, setVideo] = useState([])
     const { search, setSearch } = useContext(Context)
     const { searchPage, setSearchPage } = useContext(Context)
+    // const { history, setHistory } = useContext(Context)
     const options = {
         method: 'GET',
         headers: {
             'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
-            'X-RapidAPI-Key': '7b77d20fbamshbbf1cf1322031e1p1c95d3jsn7edeeca070d0'
+            'X-RapidAPI-Key': 'b58c9764e3mshec61f233fed968ep1958fbjsn9edf982a6081'
         }
     };
 
@@ -40,7 +41,7 @@ const Content = () => {
 
                 {
                     video?.contents?.map(i => {
-                        return <Link key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}`}>
+                        return <NavLink  key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}`}>
                             <div className="video">
                                 <div className="thumbnail">
                                     <a href="https://www.youtube.com/">
@@ -67,7 +68,7 @@ const Content = () => {
                                 </div>
 
                             </div>
-                        </Link>
+                        </NavLink>
 
                     })
                 }

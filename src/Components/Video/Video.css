@@ -105,3 +105,124 @@
     color: #aaa;
     color: white;
 }
+
+.video__subscribe{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+
+
+.share__modal {
+    width: 518px;
+    height: 329px;
+    background-color: white;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    padding: 20px;
+}
+
+.share__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.share__header p{
+   font-size: 18px;
+   font-weight: 500;
+   color: rgb(84, 84, 84);
+}
+
+.share__caruse {
+    display: flex;
+    overflow-x: scroll;
+    /* position: relative; */
+    height: 100px;
+    padding: 10px 40px;
+    /* width: 95%; */
+    margin: auto;
+}
+
+.share__caruse a {
+    cursor: pointer;
+}
+
+.share__caruse::-webkit-scrollbar {
+  width: 0px;
+  height: 0;
+}
+
+/* scrolning uzini stylesi */
+.share__caruse::-webkit-scrollbar-track {
+  -webkit-border-radius: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+/* scroll ichidagi scrolcha style */
+.share__caruse::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #666;
+}
+
+.share__link {
+    width: 60px;
+    height: 60px;
+    background-color: blue;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.next__btn {
+    position: absolute;
+    top: 20%;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    right: 0;
+    background-color: black;
+    display: block;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 10px;
+    background-color: rgb(238, 238, 238);
+    border: 1px solid rgb(158, 158, 158);
+}
+
+.next__btn i {
+    margin: 0;
+}
+.prev__btn i {
+    margin: 0;
+}
+.prev__btn {
+    position: absolute;
+    top: 21%;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    left: 0px;
+    background-color: black;
+    display: block;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 10px;
+    background-color: rgb(238, 238, 238);
+    border: 1px solid rgb(158, 158, 158);
+}

@@ -4,6 +4,16 @@ import { Context } from '../../Context/HamburgerBtn';
 const History = () => {
     // const { historySort, setHistorySort } = useContext(Context)
     const [historyVideo, setHistoryVideo] = useState([])
+    const { history, setHistory } = useContext(Context)
+
+    console.log(history);
+
+    const data = Array.from(new Set(history.map(JSON.stringify))).map(JSON.parse);
+
+    data?.map(i => {
+        console.log(i.split("/"));
+        // setHistoryVideo()
+    })
 
     return (
         <div>
