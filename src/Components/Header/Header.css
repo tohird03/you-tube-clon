@@ -234,6 +234,7 @@ span {
   background-color: white;
   /* border: 1px solid rgb(220, 217, 217); */
   border-top: none;
+  z-index: 5000;
 }
 
 .user__setting-border {
@@ -277,6 +278,7 @@ span {
   background-color: white;
   border: 1px solid rgb(220, 217, 217);
   border-top: none;
+  z-index: 5000;
 }
 .video__upload {
   position: absolute;
@@ -485,7 +487,7 @@ span {
   padding: 16px 0;
 }
 
-.prev__btn {
+.prev {
   margin-right: 20px;
   cursor: pointer;
 }

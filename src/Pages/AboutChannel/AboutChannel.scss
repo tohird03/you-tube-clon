@@ -13,6 +13,7 @@
 
     &-content {
         padding: 0px 100px;
+        background-color: #F1F1F1;
     }
 
     &-img {
@@ -34,11 +35,16 @@
         height: 117;
     }
 
+    &-subscript {
+        margin-top: 0;
+    }
+
     &-btn {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 120px;
+        padding: 10px 120px;
+        margin-bottom: 20px;
         position: sticky;
         top: -1px;
         background-color: #F9F9F9;
@@ -51,6 +57,7 @@
             font-weight: bold;
             color: rgb(87, 87, 87);
             border-radius: 2px;
+            border: 2px solid transparent;
         }
 
         button:hover {
@@ -63,4 +70,51 @@
         }
     }
 
+    &-link {
+        display: flex;
+        width: 100%;
+        max-width: 900px;
+        padding: 10px;
+        margin: 10px 0;
+        align-items: center;
+    }
+
+    &-community {
+        display: flex;
+        width: 100%;
+        margin: 0;
+        width: 750px;
+    }
+
+    &-thumbnail {
+        margin-right: 10px;
+    }
+
+    &-desc {
+        width: 210px;
+        height: 120px;
+        object-fit: cover;
+    }
+
+}
+
+.community-link {
+    width: 100%;
+    border: 1px solid rgb(227, 227, 227);
+    max-width: 900px;
+    margin-top: 30px;
+    padding: 20px;
+    &-img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.chanelAdd__card .active {
+    background-color: transparent;
+}
+
+.aboutChannel-heading {
+    color: rgb(80, 80, 80);
+    margin-bottom: 10px;
 }

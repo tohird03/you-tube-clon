@@ -12,9 +12,9 @@ import learning from "../../Assets/img/learning.png"
 import fashion from "../../Assets/img/fashion.png"
 import { Context } from '../../Context/HamburgerBtn';
 const Explore = () => {
-
+    const [trendVideo, setTrendVideo] = useState("n")
     const handleClick = (e) => {
-        console.log(e.target.textContent);
+        setTrendVideo(e.target.textContent);
     }
 
     const [video, setVideo] = useState([])
@@ -30,11 +30,11 @@ const Explore = () => {
     };
 
     useEffect(() => {
-        fetch('https://youtube-search-and-download.p.rapidapi.com/trending?type=C%20g%2C%20n%2C%20mo&hl=en&gl=US', options)
+        fetch(`https://youtube-search-and-download.p.rapidapi.com/trending?type=${trendVideo}&hl=en&gl=US`, options)
             .then(response => response.json())
             .then(response => setVideo(response))
             .catch(err => console.error(err));
-    }, []);
+    }, [trendVideo]);
 
     const hanldeHistory = (e) => {
         history.unshift(e.target.id)
@@ -78,17 +78,17 @@ const Explore = () => {
                 </div>
             </div>
 
-            <div className="videos explore__content">
+            <div style={{marginTop: "30px"}} className="videos explore__content">
 
                 {
                     video?.contents?.map(i => {
                         console.log(i);
                         const id = `${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`
                         return <NavLink onClick={hanldeHistory} id={id} key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`}>
-                            <div id={id} className="video explore__video">
+                            <div style={{display: "flex"}} id={id} className="video explore__video">
                                 <div id={id} className="thumbnail explore__img">
-                                    <p id={id}>
-                                        <img id={id} src={i.video.thumbnails.map(i => {
+                                    <p style={{marginRight: "20px"}} id={id}>
+                                        <img style={{marginRight: "20px"}} id={id} src={i.video.thumbnails.map(i => {
                                             return i.url
                                         }) || notVideo} alt="" />
                                     </p>
@@ -96,13 +96,15 @@ const Explore = () => {
 
                                 <div id={id} className="details">
                                     <div id={id} className="title esplore__heading">
-                                        <h3 className='' id={id}>
+                                        <h3 style={{ color: "black", fontSize: "20px" }} id={id}>
                                             {i.video.title}
                                         </h3>
-                                        <a id={id} href="">
-                                            {i.video.channelName}
-                                        </a>
-                                        <span id={id}> {i.video.viewCountText} • {i.video.publishedTimeText} </span>
+                                        <div style={{ display: "flex", alignItems: "center" }} >
+                                            <a style={{ color: "black", fontSize: "18px", marginRight: "10px" }} id={id} href="">
+                                                {i.video.channelName}
+                                            </a>
+                                            <span id={id}> {i.video.viewCountText} • {i.video.publishedTimeText} </span>
+                                        </div>
                                     </div>
                                 </div>
 

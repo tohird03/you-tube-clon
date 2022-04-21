@@ -247,3 +247,30 @@
     color: white;
     background-color: rgb(18, 129, 234);
 }
+
+.video-content__btn {
+    display: flex;
+}
+
+.like__button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+}
+.like__button i {
+    margin: 0;
+    font-size: 30px;
+    margin-left: 10px;
+}
+.like__button {
+    margin: 0;
+    font-size: 15px;
+}
+
+.channel__account-img {
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+    margin-right: 20px;
+}

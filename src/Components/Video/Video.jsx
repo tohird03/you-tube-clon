@@ -111,7 +111,7 @@ const Video = () => {
 
     function handleClick(e) {
 
-        if(e.target.className == "copy__btn"){
+        if (e.target.className == "copy__btn") {
             console.log(e);
             navigator.clipboard.writeText(e.target.id);
             setCopy(true)
@@ -120,9 +120,13 @@ const Video = () => {
         setTimeout(() => {
             setCopy(false)
         }, 1000);
-      }
+    }
 
+    console.log(searchResultInfo);
 
+    const handleSaveWatchLatter = () => {
+
+    }
 
     return (
         <div className='info'>
@@ -133,7 +137,7 @@ const Video = () => {
 
                 <div className='video__subscribe'>
                     <div>
-                        <span className='info__video-about'> {searchResultInfo?.items?.map(i => i?.statistics?.viewCount)} views • {x?.publishedTimeText} </span>
+                        <span className='info__video-about'> {searchResultInfo?.items?.map(i => i?.statistics?.viewCount)[0]} views • {x?.publishedTimeText} </span>
                     </div>
 
                     {/* //share modal */}
@@ -145,7 +149,7 @@ const Video = () => {
                                 close
                             </i>
                         </div>
-                        <div  className='share__caruse'>
+                        <div className='share__caruse'>
                             {/* <a className='prev__btn' href='#1'>
                                 <i className={`material-icons mic ${themeColor}`}>
                                 arrow_back_ios_new
@@ -228,29 +232,60 @@ const Video = () => {
 
                         <div onClick={handleClick} className='copy'>
                             <p className={copy ? "bg__blue" : "bg__transparrent"}>{`https://youtu.be/${x.id}`}</p>
-                            <button id={`https://youtu.be/${x.id}`}  className='copy__btn'>{copy ? "COPYED" : "COPY"}</button>
+                            <button id={`https://youtu.be/${x.id}`} className='copy__btn'>{copy ? "COPYED" : "COPY"}</button>
                         </div>
                     </div>
 
-                    <div>
-                        <button onClick={hanldeLike}>
+                    <div className='video-content__btn'>
+                        <button className='like__button' onClick={hanldeLike}>
                             <i className={`material-icons mic ${themeColor}`}>
                                 {
                                     like ? "thumb_up" : "thumb_up_off_alt"
                                 }
+
+
                             </i>
+
+                            {like ? +searchResultInfo?.items?.map(i => i?.statistics?.likeCount)[0] + 1 : searchResultInfo?.items?.map(i => i?.statistics?.likeCount)[0]}
                         </button>
-                        <button onClick={hadleDislike}>
+                        <button className='like__button' onClick={hadleDislike}>
                             <i className={`material-icons mic ${themeColor}`}>
                                 {dislike ? "thumb_down" : "thumb_down_off_alt"}
                             </i>
+                            Dislike
                         </button>
-                        <button onClick={handleReply}>
+                        <button className='like__button' onClick={handleReply}>
                             <i className={`material-icons mic ${themeColor}`}>reply</i>
+                            Share
                         </button>
-                        <button>
+                        <button className='like__button'>
                             <i className={`material-icons mic ${themeColor}`}>content_cut</i>
+                            Clip
                         </button>
+
+                        <button onClick={handleSaveWatchLatter} className='like__button'>
+                            <i className={`material-icons mic ${themeColor}`}>playlist_add</i>
+                            Clip
+                        </button>
+                    </div>
+
+
+                </div>
+
+                <hr />
+
+                <div>
+                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start"}}>
+                        <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start"}}>
+                            <img style={{marginTop: "10px"}} className='channel__account-img' src={searchResultInfo?.items?.map(i => i.snippet.thumbnails.default.url)[0]} alt="" />
+
+                            <div>
+                                <p style={{marginTop: "15px"}}>{searchResultInfo?.items?.map(i => i?.snippet?.channelTitle)[0]}</p>
+                                <span>{searchResultInfo?.items?.map(i => i?.statistics?.likeCount)[0]} likes</span>
+
+                                <p style={{marginTop: "20px", width: "80%"}}>{searchResultInfo?.items?.map(i => i?.snippet?.description)[0]}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

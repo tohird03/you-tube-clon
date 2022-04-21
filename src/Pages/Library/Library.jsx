@@ -12,7 +12,7 @@ const Library = () => {
     const { userAbboutAccount, setUserAbboutAccount } = useContext(Context)
     const { history, setHistory } = useContext(Context)
     const { chanelVideoNext, setChanelVideoNext } = useContext(Context)
-
+    const { addChannel, setAddChannel } = useContext(Context)
     const ids = chanelVideoNext.map(o => o.id)
     const filtered = chanelVideoNext.filter(({ id }, index) => !ids.includes(id, index + 1))
 
@@ -99,7 +99,7 @@ const Library = () => {
 
                 <div className='library__user-subscript'>
                     <span>Subscriptions</span>
-                    <span>2</span>
+                    <span>{addChannel.length}</span>
                 </div>
 
                 <hr className='library__user-linear' />

@@ -12,7 +12,7 @@ const Like = () => {
 
     const data = Array.from(new Set(chanelVideoNext.map(JSON.stringify))).map(JSON.parse);
 
-    
+    console.log(filtered);
 
     return (
         <div className='like__body'>
@@ -24,7 +24,7 @@ const Like = () => {
                     {
                         filtered?.map((i, index) => {
                             console.log(i);
-                            return <Link to={`/${i?.channelId}/${i?.videoId}/${i?.title}/${i?.viewCountText}/${i?.publishedTimeText}/${i?.channelName}`} className='search__result-video ' key={Math.random()}>
+                            return <Link to={`/${i?.productId}/${i?.id}/${i?.title}/${i?.views}/${i?.publishedTimeText}/${i?.channelName}`} className='search__result-video ' key={Math.random()}>
                                 <div className="video like search__videos like__link">
                                     <div className="history__account-img search__account-img like__video">
                                         <p className='like__index'>{index + 1}</p>

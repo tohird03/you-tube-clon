@@ -87,11 +87,15 @@ const Header = (props) => {
     const handleModalSettings = () => {
         setSettingsModal(!settingsModal)
         setYouTubeApps(false)
+        setVideoUpload(false)
+        //3
     }
 
     const handleYouTubeApps = () => {
         setYouTubeApps(!youTubeApps)
         setSettingsModal(false)
+        setVideoUpload(false)
+        //2
     }
 
     const handleTheme = () => {
@@ -146,6 +150,9 @@ const Header = (props) => {
 
     const handleVideoUpload = () => {
         setVideoUpload(!videoUpload)
+        setYouTubeApps(false)
+        setSettingsModal(false)
+        //1
     }
 
     const languageHeaderObj = youTUbeLanguage.header[languages]
@@ -356,25 +363,25 @@ const Header = (props) => {
 
                 <div className={youTubeApps ? `user__settings-apps ${themeColor}` : ` ${themeColor} user__settings-none`}>
                     <a href='https://tv.youtube.com/welcome/?utm_source=youtube_web&utm_medium=ep&utm_campaign=home&ve=34273&utm_servlet=prod' target="_blank" className={"user__accaunt"}>
-                        <img onClick={handlePrevTheme} className='prev__btn' src={youtubetv} alt="" />
+                        <img onClick={handlePrevTheme} className='prev' src={youtubetv} alt="" />
 
                         <h2 className='user__name'>{languageHeaderObj?.youTubeTv}</h2>
                     </a>
 
                     <a href='https://music.youtube.com/coming-soon/' target="_blank" className={"user__accaunt"}>
-                        <img onClick={handlePrevTheme} className='prev__btn' src={youtubemusic} alt="" />
+                        <img onClick={handlePrevTheme} className='prev' src={youtubemusic} alt="" />
 
                         <h2 className='user__name'>{languageHeaderObj?.youTubeMusic}</h2>
                     </a>
 
                     <a href='https://www.youtube.com/kids/' target="_blank" className={"user__accaunt"}>
-                        <img onClick={handlePrevTheme} className='prev__btn' src={youtubekids} alt="" />
+                        <img onClick={handlePrevTheme} className='prev' src={youtubekids} alt="" />
 
                         <h2 className='user__name'>{languageHeaderObj?.youTubeChild}</h2>
                     </a>
 
                     <a href='https://artists.youtube.com/' target="_blank" className={"user__accaunt"}>
-                        <img onClick={handlePrevTheme} className='prev__btn' src={youtube} alt="" />
+                        <img onClick={handlePrevTheme} className='prev' src={youtube} alt="" />
 
                         <h2 className='user__name'>{languageHeaderObj?.youTubeArtist}</h2>
                     </a>
