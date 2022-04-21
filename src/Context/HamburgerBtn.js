@@ -13,6 +13,7 @@ function Provider({children}){
     const localUserVideoUpload = JSON.parse(window.localStorage.getItem('upload'))
     const localUserModal = JSON.parse(window.localStorage.getItem('uploadModal'))
     const localUserLike = JSON.parse(window.localStorage.getItem('like'))
+    const localUserLikeSort = JSON.parse(window.localStorage.getItem('likeSort'))
 
     const [userAbboutAccount, setUserAbboutAccount] = useState(localUserAccount || [])
     const [emailFilter, setEmailFilter] = useState(localUserAccountEmail || [])
@@ -25,10 +26,12 @@ function Provider({children}){
     let [search, setSearch] = useState(localSearch || [])
     let [addChannel, setAddChannel] = useState(localChannel || [])
     let [history, setHistory] = useState(localProduct || [])
+    let [likeSort, setLIkeSort] = useState(localUserLikeSort || [])
 
     const [chanelVideoNext, setChanelVideoNext] = useState(localUserLike || [])
 
     window.localStorage.setItem('product', JSON.stringify(history))
+    window.localStorage.setItem('likeSort', JSON.stringify(likeSort))
     window.localStorage.setItem('addChannel', JSON.stringify(addChannel))
     window.localStorage.setItem('upload', JSON.stringify(userVideoUpload))
     window.localStorage.setItem('uploadModal', JSON.stringify(uploadModal))
@@ -36,6 +39,10 @@ function Provider({children}){
 
     useEffect(() => {
         window.localStorage.setItem('userToken', JSON.stringify(userAbboutAccount))
+    }, [userAbboutAccount]);
+
+    useEffect(() => {
+        window.localStorage.setItem('likeSort', JSON.stringify(likeSort))
     }, [userAbboutAccount]);
 
     // useEffect(() => {
@@ -74,7 +81,7 @@ function Provider({children}){
     }, [addChannel])
 
     return(
-        <Context.Provider value={{humbergerBtn, setHumbergerBtn, search, setSearch, history, setHistory, searchPage, setSearchPage, themeColor, setThemeColor, addChannel, setAddChannel, themeColor, setThemeColor, languages, setLanguages, userAbboutAccount, setUserAbboutAccount, emailFilter, setEmailFilter, userVideoUpload, setUserViodeUpload, uploadModal, setUploadModal, chanelVideoNext, setChanelVideoNext}}>
+        <Context.Provider value={{humbergerBtn, setHumbergerBtn, search, setSearch, history, setHistory, searchPage, setSearchPage, themeColor, setThemeColor, addChannel, setAddChannel, themeColor, setThemeColor, languages, setLanguages, userAbboutAccount, setUserAbboutAccount, emailFilter, setEmailFilter, userVideoUpload, setUserViodeUpload, uploadModal, setUploadModal, chanelVideoNext, setChanelVideoNext, likeSort, setLIkeSort}}>
             {children}
         </Context.Provider>
     )

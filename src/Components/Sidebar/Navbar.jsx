@@ -40,31 +40,33 @@ const Navbar = () => {
 
     const youTubeNavbarLang = youTUbeLanguage.navbar[languages]
 
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
-            'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
-        }
-    };
+    // const options = {
+    //     method: 'GET',
+    //     headers: {
+    //         'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
+    //         'X-RapidAPI-Key': '7306d73337msh7fad6a0fa751d98p10c355jsna8f006a0cd81'
+    //     }
+    // };
 
-    useEffect(() => {
-        addChannel?.map(i => {
-            fetch(`https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${i}`, options)
-                .then(response => response.json())
-                .then(response => setAddHeaderChannelInfo([response, ...addHeaderChannelInfo]))
-                .catch(err => console.error(err));
-        })
-    }, [addChannel]);
+    // useEffect(() => {
+    //     addChannel?.map(i => {
+    //         fetch(`https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${i}`, options)
+    //             .then(response => response.json())
+    //             .then(response => setAddHeaderChannelInfo([response]))
+    //             .catch(err => console.error(err));
+    //     })
+    // }, [addChannel]);
 
-    const data = Array.from(new Set(addHeaderChannelInfo.map(JSON.stringify))).map(JSON.parse);
+    // const data = Array.from(new Set(addHeaderChannelInfo.map(JSON.stringify))).map(JSON.parse);
 
-    window.localStorage.getItem("sortData")
-    window.localStorage.setItem("sortData",JSON.stringify(data))
+    // console.log(addChannel);
 
-    useEffect(() => {
-        window.localStorage.setItem("sortData",JSON.stringify(data))
-    }, [data]);
+    // window.localStorage.getItem("sortData")
+    // window.localStorage.setItem("sortData",JSON.stringify(data))
+
+    // useEffect(() => {
+    //     window.localStorage.setItem("sortData",JSON.stringify(data))
+    // }, [data]);
     return (
         <div className={humbergerBtn ? `side-bar ${themeColor}` : `side-bar-short ${themeColor}`}>
             <div className={`${themeColor} navbar`}>
@@ -157,10 +159,13 @@ const Navbar = () => {
                 </h3>
 
                 {
-                    data?.map(i => {
-                        return <NavLink to="/hjcbsa" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                    addChannel?.map(i => {
 
-                            <span >Browse channels</span>
+                        return <NavLink to={`${i.split("/")[0]}`} className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                            <i style={{color: "red"}} className={`material-icons ${themeColor}`}>bookmark_added</i>
+                            <span >
+                                {i.split("/")[1]}
+                            </span>
                         </NavLink>
                     })
                 }

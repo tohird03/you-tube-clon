@@ -46,7 +46,6 @@ const Content = () => {
 
                 {
                     video?.contents?.map(i => {
-                        console.log(i);
                         const id = `${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`
                         return <NavLink onClick={hanldeHistory} id={id} key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`}>
                             <div id={id} className="video">
@@ -83,7 +82,7 @@ const Content = () => {
                 {/* https://www.youtube.com/watch?v=zpNZ6GxLlDI */}
             </div>
 
-            
+
         </>
     );
 }

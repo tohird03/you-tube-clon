@@ -22,9 +22,9 @@ const Video = () => {
     const [shareModal, setShareModal] = useState(false)
     const [copy, setCopy] = useState(false)
 
-    const localUserLike = JSON.parse(window.localStorage.getItem('likeBtn'))
-    const [like, setLike] = useState(localUserLike || false)
-    window.localStorage.setItem('likeBtn', JSON.stringify(like))
+    // const localUserLike = JSON.parse(window.localStorage.getItem('likeBtn'))
+    const [like, setLike] = useState(false)
+    // window.localStorage.setItem('likeBtn', JSON.stringify(like))
     const options = {
         method: 'GET',
         headers: {
@@ -99,9 +99,9 @@ const Video = () => {
             chanelVideoNext.push(x)
             window.localStorage.setItem('like', JSON.stringify(chanelVideoNext))
         } else {
-            const foundElement = chanelVideoNext.findIndex(i => i.id == x.id)
-            chanelVideoNext.splice(foundElement, 1)
-            window.localStorage.setItem('like', JSON.stringify(chanelVideoNext))
+            // const foundElement = chanelVideoNext.findIndex(i => i.id == x.id)
+            // chanelVideoNext.splice(foundElement, 1)
+            // window.localStorage.setItem('like', JSON.stringify(chanelVideoNext))
         }
     }, [like]);
 
@@ -284,7 +284,7 @@ const Video = () => {
             <div className='chanel-video'>
                 {
                     video?.contents?.map(i => {
-                        return <Link className='chanel__category-video' key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}`}>
+                        return <Link className='chanel__category-video' key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`}>
                             <div className="chanel__video">
                                 <div className="chanel__category-img">
                                     <img className='chanel__imgs' width="168" height="90" src={i.video.thumbnails.map(i => {

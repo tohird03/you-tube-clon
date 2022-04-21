@@ -32,11 +32,23 @@
 
   /* width */
 .navbar::-webkit-scrollbar {
-  width: 0px;
+  width: 8px;
+  color: transparent;
+  box-shadow: inset 0 0 0px rgb(0, 0, 0);
+  background: rgba(255, 255, 255, 1);
+  opacity: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .side-bar:hover .navbar::-webkit-scrollbar {
   width: 8px;
+  opacity: 1;
 }
 
 /* Track */

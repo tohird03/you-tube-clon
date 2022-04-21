@@ -70,8 +70,6 @@ const Header = (props) => {
             audioIncludes.play()
         }
     }, [a, b, d]);
-    console.log(searchInputAudioValue);
-    console.log(search);
     const handleClick = () => {
         setHumbergerBtn(!humbergerBtn)
     }

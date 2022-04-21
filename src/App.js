@@ -17,7 +17,8 @@ import Upload from "./Pages/Upload/Upload"
 import ChannelHeader from "../src/Components/ChannelHeader/ChannelHeader"
 import ChannelNavbar from "../src/Components/ChannelNavbar/ChannelNavbar"
 import ContentUser from './UploadPage/Content/ContentUser';
-import Like from "../src/Pages/Like/Like";
+import Like from './Pages/Like/Like';
+import Aboutchannel from './Pages/AboutChannel/ABoutChannel';
 function App() {
   const { themeColor, setThemeColor } = useContext(Context)
   const { userVideoUpload, setUserViodeUpload } = useContext(Context)
@@ -42,6 +43,7 @@ function App() {
               <Route path='/login' element={<Login/>}/>
               <Route path='/up' element={<Upload/>}/>
               <Route path='/like' element={<Like/>}/>
+              <Route path='/:channelId' element={<Aboutchannel/>}/>
             </Route>
           </Routes>
         </div>
