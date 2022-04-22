@@ -113,7 +113,7 @@ const Aboutchannel = () => {
 
     console.log(channelAbout);
     window.localStorage.setItem('channelAbout', JSON.stringify(channelAbout))
-    if (channelAbout.length == 0) {
+    if (!channelAbout.items) {
         return <Content />
     } else {
         return (

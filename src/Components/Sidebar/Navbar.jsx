@@ -138,13 +138,6 @@ const Navbar = () => {
                     </span>
                 </NavLink>
 
-                <NavLink to="/hello/ddd" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
-                    <i className={`material-icons ${themeColor}`}>watch_later</i>
-                    <span >
-                        {youTubeNavbarLang?.watchLaterLang}
-                    </span>
-                </NavLink>
-
                 <NavLink to="/like" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <i className={`material-icons ${themeColor}`}>thumb_up</i>
                     <span >
