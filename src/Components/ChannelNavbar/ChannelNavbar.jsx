@@ -162,27 +162,6 @@ const Navbar = () => {
                         Audio library
                     </span>
                 </NavLink>
-
-                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
-                    <i className={`material-icons ${themeColor}`}>watch_later</i>
-                    <span >
-                        {youTubeNavbarLang?.watchLaterLang}
-                    </span>
-                </a>
-
-                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
-                    <i className={`material-icons ${themeColor}`}>thumb_up</i>
-                    <span >
-                        {youTubeNavbarLang?.likedVideosLang}
-                    </span>
-                </a>
-
-                <hr className={humbergerBtn ? "d-block" : "d-none"} />
-
-                <h3 className={humbergerBtn ? "d-block subscription" : "d-none subscription"} >
-                    {youTubeNavbarLang?.subscribeNameLang}
-                </h3>
-
                 {
                     data?.map(i => {
                         return <NavLink to="/hjcbsa" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >

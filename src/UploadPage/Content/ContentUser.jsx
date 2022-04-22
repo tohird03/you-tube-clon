@@ -46,7 +46,6 @@ const Content = () => {
 
             <div className="VideoInput">
                 <input
-                    ref={inputRef}
                     className="VideoInput_input"
                     type="file"
                     onChange={handleFileChange}
@@ -54,13 +53,15 @@ const Content = () => {
                 />
                 {src.filter(i => i !== undefined ? i : null) && (
                     data?.map(srcVideo => {
-                        return <video
-                            className="VideoInput_video"
-                            width="100%"
-                            height={400}
-                            controls
-                            src={srcVideo}
-                        />
+                        return <div>
+                            <video
+                                className="VideoInput_video"
+                                width="100%"
+                                height={400}
+                                controls
+                                src={srcVideo}
+                            />
+                        </div>
                     })
                 )}
             </div>

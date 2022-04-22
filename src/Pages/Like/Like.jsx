@@ -22,7 +22,7 @@ const Like = () => {
             <div className='like__videos'>
                 <div className=''>
                     {
-                        filtered?.map((i, index) => {
+                       filtered.length > 0 ? filtered?.map((i, index) => {
                             console.log(i);
                             return <Link to={`/${i?.productId}/${i?.id}/${i?.title}/${i?.views}/${i?.publishedTimeText}/${i?.channelName}`} className='search__result-video ' key={Math.random()}>
                                 <div className="video like search__videos like__link">
@@ -48,7 +48,7 @@ const Like = () => {
 
                                 </div>
                             </Link>
-                        })
+                        }) : <h1  style={themeColor == "dark" ? {color: "white", position: "absolute", left: "50%", top: "50%"} : {position: "absolute", left: "50%", top: "50%"}}>Not Like video</h1>
                     }
 
 

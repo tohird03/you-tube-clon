@@ -19,6 +19,7 @@ import ChannelNavbar from "../src/Components/ChannelNavbar/ChannelNavbar"
 import ContentUser from './UploadPage/Content/ContentUser';
 import Like from './Pages/Like/Like';
 import Aboutchannel from './Pages/AboutChannel/ABoutChannel';
+import Not from './Components/NotFound/Not';
 function App() {
   const { themeColor, setThemeColor } = useContext(Context)
   const { userVideoUpload, setUserViodeUpload } = useContext(Context)
@@ -43,7 +44,8 @@ function App() {
               <Route path='/login' element={<Login/>}/>
               <Route path='/up' element={<Upload/>}/>
               <Route path='/like' element={<Like/>}/>
-              <Route path='/:channelId' element={<Aboutchannel/>}/>
+              <Route path='/:channelId/:channelParams' element={<Aboutchannel/>}/>
+              <Route path='/*' element={<Not/>}/>
             </Route>
           </Routes>
         </div>
@@ -66,6 +68,7 @@ function App() {
         <Navbar/>
         <div className={themeColor == "dark" ? "content__dark content" : `content`}>
           <Routes>
+            <Route path='/:channelId' element={<Aboutchannel/>}/>
             <Route path='/' element={<Private/>}>
               <Route path='/' element={<Content/>}/>
               <Route path='/:productId/:id/:title/:views/:publishedTimeText' element={<Video/>}/>
@@ -76,7 +79,9 @@ function App() {
               <Route path="/chanel" element={<Chanel/>}/>
               <Route path='/login' element={<Login/>}/>
               <Route path='/up' element={<Upload/>}/>
+              <Route path='/like' element={<Like/>}/>
 
+              <Route path='/*' element={<Not/>}/>
             </Route>
           </Routes>
         </div>

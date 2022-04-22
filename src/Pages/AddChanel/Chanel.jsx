@@ -6,20 +6,21 @@ const Chanel = () => {
     const [chanel, setChanel] = useState([])
     const [chanelFilter, setChanelFilter] = useState([])
     const { addChannel, setAddChannel } = useContext(Context)
-    // const options = {
-    //     method: 'GET',
-    //     headers: {
-    //         'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
-    //         'X-RapidAPI-Key': '9a1415f26cmshdb16db78cfd4330p155a7cjsn29e5eedb9562'
-    //     }
-    // };
+    const { themeColor, setThemeColor } = useContext(Context)
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
+            'X-RapidAPI-Key': '9a1415f26cmshdb16db78cfd4330p155a7cjsn29e5eedb9562'
+        }
+    };
 
-    // useEffect(() => {
-    //     fetch('https://youtube-v31.p.rapidapi.com/search?relatedToVideoId=7ghhRHRP6t4&part=id%2Csnippet&type=video&maxResults=50', options)
-    //         .then(response => response.json())
-    //         .then(response => setChanel(response))
-    //         .catch(err => console.error(err));
-    // }, []);
+    useEffect(() => {
+        fetch('https://youtube-v31.p.rapidapi.com/search?relatedToVideoId=7ghhRHRP6t4&part=id%2Csnippet&type=video&maxResults=50', options)
+            .then(response => response.json())
+            .then(response => setChanel(response))
+            .catch(err => console.error(err));
+    }, []);
 
 
     useEffect(() => {
@@ -37,13 +38,13 @@ const Chanel = () => {
     }
     // console.log(addChannel);
     return (
-        <div className='chanelAdd'>
+        <div className={`themeColor chanelAdd`}>
             {
                 chanelFilter?.map(i => {
                     return <div className='chanelAdd__card'>
-                        <NavLink to={`/${i.snippet.channelId}`} className='chanelAdd__link'>
+                        <NavLink to={`id/${i.snippet.channelId}`} className='chanelAdd__link'>
                             <img className='chanelAdd__card-img' width={"103"} height="103" src={i?.snippet?.thumbnails?.standard?.url || i?.snippet?.thumbnails?.default.url} alt="" />
-                            <p className='channel__title'>{i.snippet.channelTitle}</p>
+                            <p style={themeColor == "dark" ? {color: "white"} : {color: "black"}} className='channel__title'>{i.snippet.channelTitle}</p>
                         </NavLink>
                         <button onClick={handleAddChanel} className={addChannel.includes(`${i.snippet.channelId}/${i.snippet.channelTitle}`) ? 'chanelAdd__card-btn addChannelSubscript' : "chanelAdd__card-btn"} id={`${i.snippet.channelId}/${i.snippet.channelTitle}`}>{!addChannel.includes(i.snippet.channelId) ? "SUBSCRIBE" : "SUBSCRIBED"}</button>
                     </div>

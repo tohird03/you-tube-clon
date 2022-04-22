@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import "../Video/Video.css"
 import notVideo from "../../Assets/img/not.png"
 import { Context } from '../../Context/HamburgerBtn';
@@ -29,7 +29,7 @@ const Video = () => {
         method: 'GET',
         headers: {
             'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
-            'X-RapidAPI-Key': '7b77d20fbamshbbf1cf1322031e1p1c95d3jsn7edeeca070d0'
+            'X-RapidAPI-Key': 'b58c9764e3mshec61f233fed968ep1958fbjsn9edf982a6081'
         }
     };
 
@@ -53,7 +53,7 @@ const Video = () => {
         method: 'GET',
         headers: {
             'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
-            'X-RapidAPI-Key': '7b77d20fbamshbbf1cf1322031e1p1c95d3jsn7edeeca070d0'
+            'X-RapidAPI-Key': 'b58c9764e3mshec61f233fed968ep1958fbjsn9edf982a6081'
         }
     };
 
@@ -69,7 +69,7 @@ const Video = () => {
         method: 'GET',
         headers: {
             'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
-            'X-RapidAPI-Key': '7b77d20fbamshbbf1cf1322031e1p1c95d3jsn7edeeca070d0'
+            'X-RapidAPI-Key': 'b58c9764e3mshec61f233fed968ep1958fbjsn9edf982a6081'
         }
     };
 
@@ -236,8 +236,8 @@ const Video = () => {
                         </div>
                     </div>
 
-                    <div className='video-content__btn'>
-                        <button className='like__button' onClick={hanldeLike}>
+                    <div className={`video-content__btn ${themeColor}`}>
+                        <button className={`like__button ${themeColor}`} onClick={hanldeLike}>
                             <i className={`material-icons mic ${themeColor}`}>
                                 {
                                     like ? "thumb_up" : "thumb_up_off_alt"
@@ -248,22 +248,22 @@ const Video = () => {
 
                             {like ? +searchResultInfo?.items?.map(i => i?.statistics?.likeCount)[0] + 1 : searchResultInfo?.items?.map(i => i?.statistics?.likeCount)[0]}
                         </button>
-                        <button className='like__button' onClick={hadleDislike}>
+                        <button className={`like__button ${themeColor}`} onClick={hadleDislike}>
                             <i className={`material-icons mic ${themeColor}`}>
                                 {dislike ? "thumb_down" : "thumb_down_off_alt"}
                             </i>
                             Dislike
                         </button>
-                        <button className='like__button' onClick={handleReply}>
+                        <button className={`like__button ${themeColor}`} onClick={handleReply}>
                             <i className={`material-icons mic ${themeColor}`}>reply</i>
                             Share
                         </button>
-                        <button className='like__button'>
+                        <button className={`like__button ${themeColor}`}>
                             <i className={`material-icons mic ${themeColor}`}>content_cut</i>
                             Clip
                         </button>
 
-                        <button onClick={handleSaveWatchLatter} className='like__button'>
+                        <button onClick={handleSaveWatchLatter} className={`${themeColor} like__button`}>
                             <i className={`material-icons mic ${themeColor}`}>playlist_add</i>
                             Clip
                         </button>
@@ -275,15 +275,17 @@ const Video = () => {
                 <hr />
 
                 <div>
-                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start"}}>
-                        <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start"}}>
-                            <img style={{marginTop: "10px"}} className='channel__account-img' src={searchResultInfo?.items?.map(i => i.snippet.thumbnails.default.url)[0]} alt="" />
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                            <NavLink to={`/${x.productId}/${x.productId}`}>
+                                <img style={{ marginTop: "10px" }} className='channel__account-img' src={searchResultInfo?.items?.map(i => i.snippet.thumbnails.default.url)[0]} alt="" />
+                            </NavLink>
 
                             <div>
-                                <p style={{marginTop: "15px"}}>{searchResultInfo?.items?.map(i => i?.snippet?.channelTitle)[0]}</p>
+                                <p style={themeColor == "dark" ? { marginTop: "15px", color: "white" } : { marginTop: "15px" }}>{searchResultInfo?.items?.map(i => i?.snippet?.channelTitle)[0]}</p>
                                 <span>{searchResultInfo?.items?.map(i => i?.statistics?.likeCount)[0]} likes</span>
 
-                                <p style={{marginTop: "20px", width: "80%"}}>{searchResultInfo?.items?.map(i => i?.snippet?.description)[0]}</p>
+                                <p style={themeColor == "dark" ? { marginTop: "20px", width: "80%", color: "white" } : { marginTop: "20px", width: "80%" }}>{searchResultInfo?.items?.map(i => i?.snippet?.description)[0]}</p>
                             </div>
                         </div>
                     </div>
@@ -316,7 +318,7 @@ const Video = () => {
                 }
 
             </div>
-            <div className='chanel-video'>
+            <div className={`${themeColor} chanel-video`}>
                 {
                     video?.contents?.map(i => {
                         return <Link className='chanel__category-video' key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`}>
@@ -329,7 +331,7 @@ const Video = () => {
 
                                 <div className="details">
                                     <div className="title">
-                                        <h3>
+                                        <h3 style={themeColor == "dark" ? { color: "white" } : { color: "" }}>
                                             {i.video.title}
                                         </h3>
                                         <a href="">

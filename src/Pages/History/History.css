@@ -36,10 +36,49 @@ img {
     border: 1px solid red;
 } */
 
+.history__body .dark {
+    background-color: black;
+    color: white;
+}
+.history__body .dark input {
+    background-color: black;
+    color: white;
+    border-bottom: 2px solid rgb(210, 205, 205);
+    color: white;
+}
+.history__body .dark input::placeholder {
+    background-color: black;
+    color: white;
+    border-bottom: 2px solid rgb(210, 205, 205);
+    color: white;
+}
+
+.history__body .dark div,  .history__body .dark a {
+    background-color: black;
+    color: white;
+}
+
+.history__body .dark:nth-child(1){
+    background-color: transparent;
+    color: white;
+}
+.history__body .history__link .history .history__account-img{
+    background-color: transparent;
+    color: white;
+}
+.history__body .history__link .history .details div h3{
+    background-color: transparent;
+    color: white;
+}
+.history__body .history__link .history .details div span{
+    background-color: transparent;
+    color: white;
+}
+
 .history__setting {
     background-color: #f1f1f1;
     padding: 50px;
-    height: 91vh;
+    height: 92vh;
     position: fixed;
     right: 0;
     width: 400px;
@@ -58,7 +97,6 @@ img {
 }
 
 .history__input:focus {
-    width: 200px;
     padding: 7px;
     border: none;
     border-bottom: 2px solid black;

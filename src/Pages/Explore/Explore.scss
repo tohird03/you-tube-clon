@@ -55,4 +55,36 @@
     .details &__heading h3 {
         font-size: 40px;
     }
+
+    .dark {
+        background-color: transparent;
+
+        div {
+            background-color: black;
+            color: white;
+        }
+        div h3 {
+            background-color: black;
+            color: white;
+        }
+    }
+
+    &__links {
+        .dark {
+            background-color: transparent;
+            color: white;
+        }
+        .dark div {
+            background-color: transparent;
+            color: white;
+        }
+        .dark div div h3 {
+            background-color: transparent;
+            color: white;
+        }
+    }
+}
+
+.d-block .content__dark .dark .videos a .video .dark .title h3 {
+    color: white;
 }

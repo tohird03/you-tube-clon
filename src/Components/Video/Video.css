@@ -49,7 +49,6 @@
 .chanel-video {
     background-color: white;
     margin: 0 20px 0;
-    padding: 30px 5px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -273,4 +272,16 @@
     height: 48px;
     width: 48px;
     margin-right: 20px;
+}
+
+.video-content__btn .dark i {
+    background-color: transparent;
+}
+
+.video__subscribe .dark {
+    background-color: transparent;
+}
+
+.info .dark {
+    background-color: transparent;
 }

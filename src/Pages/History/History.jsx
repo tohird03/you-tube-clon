@@ -24,7 +24,7 @@ const History = () => {
     }
 
     return (<div className='history__body'>
-        <div className='you-tube-history'>
+        <div className={`you-tube-history ${themeColor}`}>
             <p className='history__desc'>Watch history</p>
             {
                 sorted?.map(i => {
@@ -62,7 +62,8 @@ const History = () => {
 
 
         </div>
-        <div className='history__setting'>
+
+        <div className={`history__setting ${themeColor}`}>
             <input placeholder='Search watch history' className='history__input' type="text" />
             <div onClick={handleHistoryDelete} className='histor__delete history__delete__all'>
                 <i className={`material-icons ${themeColor}`}>delete_forever</i>

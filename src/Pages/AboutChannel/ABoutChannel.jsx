@@ -7,7 +7,7 @@ import "../AboutChannel/AboutChannel.scss"
 import notVideo from "../../Assets/img/not.png"
 import Chanel from '../AddChanel/Chanel';
 const Aboutchannel = () => {
-    const x = useParams()
+    const id = useParams()
     const localChannel = JSON.parse(window.localStorage.getItem('channelAbout'))
     const [channelAbout, setChannelAbout] = useState(localChannel || [])
     const { addChannel, setAddChannel } = useContext(Context)
@@ -18,7 +18,7 @@ const Aboutchannel = () => {
     const localCommunity = JSON.parse(window.localStorage.getItem('community'))
     const channelCategorySub = JSON.parse(window.localStorage.getItem('subscript'))
     const localChannelInfo = JSON.parse(window.localStorage.getItem('channelInfo'))
-
+    const { themeColor, setThemeColor } = useContext(Context)
     const [channelVideo, setChannelVideo] = useState(localChannelVideo || false)
     const [community, setCommunity] = useState(localCommunity || false)
     const [channelCategory, setChannelCategory] = useState(channelCategorySub || false)
@@ -34,21 +34,21 @@ const Aboutchannel = () => {
         window.localStorage.setItem('videoChannel', JSON.stringify(channelVideo))
     }, [channelVideo]);
 
-    // const options = {
-    //     method: 'GET',
-    //     headers: {
-    //         'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
-    //         'X-RapidAPI-Key': '9a1415f26cmshdb16db78cfd4330p155a7cjsn29e5eedb9562'
-    //     }
-    // };
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
+            'X-RapidAPI-Key': '9a1415f26cmshdb16db78cfd4330p155a7cjsn29e5eedb9562'
+        }
+    };
 
-    // //channels statistick
-    // useEffect(() => {
-    //     fetch(`https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${x.channelId}`, options)
-    //         .then(response => response.json())
-    //         .then(response => setChannelAbout(response))
-    //         .catch(err => console.error(err));
-    // }, [x]);
+    //channels statistick
+    useEffect(() => {
+        fetch(`https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${id.channelId}`, options)
+            .then(response => response.json())
+            .then(response => setChannelAbout(response))
+            .catch(err => console.error(err));
+    }, [id]);
 
     // console.log(channelAbout.items[0].brandingSettings.image.bannerExternalUrl);
 
@@ -62,21 +62,21 @@ const Aboutchannel = () => {
         }
     }
 
-    //channel video
-    // const optionsVideo = {
-    //     method: 'GET',
-    //     headers: {
-    //         'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
-    //         'X-RapidAPI-Key': '9a1415f26cmshdb16db78cfd4330p155a7cjsn29e5eedb9562'
-    //     }
-    // };
+    // channel video
+    const optionsVideo = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
+            'X-RapidAPI-Key': '9a1415f26cmshdb16db78cfd4330p155a7cjsn29e5eedb9562'
+        }
+    };
 
-    // useEffect(() => {
-    //     fetch(`https://youtube-v31.p.rapidapi.com/search?channelId=${x.channelId}&part=snippet%2Cid&order=date&maxResults=50`, optionsVideo)
-    //         .then(response => response.json())
-    //         .then(response => setVideoContent(response))
-    //         .catch(err => console.error(err));
-    // }, [x]);
+    useEffect(() => {
+        fetch(`https://youtube-v31.p.rapidapi.com/search?channelId=${id.channelId}&part=snippet%2Cid&order=date&maxResults=50`, optionsVideo)
+            .then(response => response.json())
+            .then(response => setVideoContent(response))
+            .catch(err => console.error(err));
+    }, [id]);
 
     const hanldeHistory = (e) => {
         history.unshift(e.target.id)
@@ -117,7 +117,7 @@ const Aboutchannel = () => {
         return <Content />
     } else {
         return (
-            <div>
+            <div className={themeColor}>
                 <img className='add__channel-banner' src={channelAbout?.items[0]?.brandingSettings?.image?.bannerExternalUrl} alt="" />
 
                 <div className='add__channel-hero'>
@@ -125,24 +125,24 @@ const Aboutchannel = () => {
                         <img className='add__channel-img' width="88" height='88' src={channelAbout?.items[0]?.snippet?.thumbnails?.default?.url} alt="" />
 
                         <div>
-                            <h3>{channelAbout?.items[0]?.snippet?.title}</h3>
-                            <p>{channelAbout?.items[0]?.statistics?.subscriberCount} subscribers</p>
+                            <h3 style={themeColor == "dark" ? {color: "white"} : {color: ""}}>{channelAbout?.items[0]?.snippet?.title}</h3>
+                            <p style={themeColor == "dark" ? {color: "white"} : {color: ""}}>{channelAbout?.items[0]?.statistics?.subscriberCount} subscribers</p>
                         </div>
                     </div>
 
                     <div>
-                        <button onClick={handleAddChanel} className={addChannel?.includes(`${x?.channelId}/${channelAbout?.items[0]?.snippet?.title}`) ? 'chanelAdd__card-btn addChannelSubscript add__channel-subscript' : "add__channel-subscript chanelAdd__card-btn"} id={`${x?.channelId}/${channelAbout?.items[0]?.snippet?.title}`}>{!addChannel?.includes(x) ? "SUBSCRIBE" : "SUBSCRIBED"}</button>
+                        <button onClick={handleAddChanel} className={addChannel?.includes(`${id?.channelId}/${channelAbout?.items[0]?.snippet?.title}`) ? 'chanelAdd__card-btn addChannelSubscript add__channel-subscript' : "add__channel-subscript chanelAdd__card-btn"} id={`${id?.channelId}/${channelAbout?.items[0]?.snippet?.title}`}>{!addChannel?.includes(id) ? "SUBSCRIBE" : "SUBSCRIBED"}</button>
                     </div>
                 </div>
 
-                <div className='add__channel-btn'>
+                <div className={`${themeColor} add__channel-btn`}>
                     <button onClick={hanldeVideoChannel} className={channelVideo ? "bg__btn-category" : ""}>VIDEOS</button>
                     <button onClick={hanldeCommunity} className={community ? "bg__btn-category" : ""}>COMMUNITY</button>
                     <button onClick={handleCategoryChannel} className={channelCategory ? "bg__btn-category" : ""}>CHANNELS</button>
                     <button onClick={handleChannelAbout} className={channelAboutTitle ? "bg__btn-category" : ""}>ABOUT</button>
                 </div>
 
-                <div className={channelVideo ? "d-block videos add__channel-content" : "d-none"}>
+                <div className={channelVideo ? `${themeColor} d-block videos add__channel-content` : "d-none"}>
                     {
                         videoContent?.items?.map(i => {
                             const id = `${i.snippet.channelId}/${i.id.videoId}/${i.snippet.title}/${i.snippet.publishedAt}/${i.snippet.publishTime}/${i.snippet.channelTitle}`
@@ -222,11 +222,11 @@ const Aboutchannel = () => {
                     }
                 </div>
 
-                <div className={channelCategory ? "d-block videos add__channel-category" : "d-none"}>
+                <div className={channelCategory ? "d-block videos channelsAddCategory add__channel-category" : "d-none"}>
                     <Chanel />
                 </div>
 
-                <div className={channelAboutTitle ? "d-block videos add__channel-category" : "d-none"}>
+                <div className={channelAboutTitle ? "channelsAddCategory d-block videos add__channel-category" : "d-none"}>
                     <div style={{display: "flex", alignItems: "flex-start"}}>
                         <div style={{padding: "0 100px", marginBottom: "50px"}}>
                             <h3 className='aboutChannel-heading'>Description</h3>

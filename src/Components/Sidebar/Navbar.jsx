@@ -97,20 +97,20 @@ const Navbar = () => {
                     </span>
                 </NavLink>
 
-                <a className="nav-link">
+                <NavLink to="/hello/aaa" className="nav-link">
                     <div className='nav__links'>
                         <img className='nav__links-shorts' width="30" src={shortsIcon} alt="" />
                         <span id='link__name' className={humbergerBtn ? "d-none" : "d-block"}>Shorts</span>
                     </div>
                     <span className={humbergerBtn ? "d-block" : "d-none"}>Shorts</span>
-                </a>
+                </NavLink>
 
-                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"}>
+                <NavLink to="/hello/bbb" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"}>
                     <i className={`material-icons ${themeColor}`}>subscriptions</i>
                     <span className={humbergerBtn ? "d-block ss" : "d-none ss"}>
                         {youTubeNavbarLang?.subscriptionsLang}
                     </span>
-                </a>
+                </NavLink>
 
                 <hr className={humbergerBtn ? "d-block" : "d-none"} />
 
@@ -138,12 +138,12 @@ const Navbar = () => {
                     </span>
                 </NavLink>
 
-                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                <NavLink to="/hello/ddd" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <i className={`material-icons ${themeColor}`}>watch_later</i>
                     <span >
                         {youTubeNavbarLang?.watchLaterLang}
                     </span>
-                </a>
+                </NavLink>
 
                 <NavLink to="/like" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <i className={`material-icons ${themeColor}`}>thumb_up</i>
@@ -161,7 +161,7 @@ const Navbar = () => {
                 {
                     addChannel?.map(i => {
 
-                        return <NavLink to={`${i.split("/")[0]}`} className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                        return <NavLink to={`/${i.split("/")[0]}/${i.split("/")[0]}`} className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                             <i style={{color: "red"}} className={`material-icons ${themeColor}`}>bookmark_added</i>
                             <span >
                                 {i.split("/")[1]}
@@ -184,34 +184,34 @@ const Navbar = () => {
                     {youTubeNavbarLang?.youTubeInfolang}
                 </h3>
 
-                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                <NavLink to="/hello/fff" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <i className={`material-icons ${themeColor}`}>sports_esports</i>
                     <span >
                         {youTubeNavbarLang?.gamingLang}
                     </span>
-                </a>
+                </NavLink>
 
-                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                <NavLink to="/hello/ccc" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <img className='link__icon' width="24" height="24" src={themeColor == "dark" ? liveLight : live} />
                     <span >
                         {youTubeNavbarLang?.liveLang}
                     </span>
-                </a>
+                </NavLink>
 
-                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                <NavLink to="/hello/qqq" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <img className='link__icon' width="24" height="24" src={themeColor == "dark" ? musicLight : musicDark} />
                     <span >
                         {youTubeNavbarLang?.musicLang}
                     </span>
-                </a>
+                </NavLink>
 
-                <a className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
+                <NavLink to="/hello/ll" className={humbergerBtn ? "d-block nav-link" : "d-none nav-link"} >
                     <i className={`material-icons ${themeColor}`}>emoji_events</i>
 
                     <span >
                         {youTubeNavbarLang?.sportLang}
                     </span>
-                </a>
+                </NavLink>
 
                 <hr className={humbergerBtn ? "d-block" : "d-none"} />
 

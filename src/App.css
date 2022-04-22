@@ -44,3 +44,7 @@ button {
 iframe {
     border: none;
 }
+
+i {
+    background-color: transparent;
+}

@@ -12,7 +12,7 @@
     }
 
     &-content {
-        padding: 0px 100px;
+        padding: 20px 100px;
         background-color: #F1F1F1;
     }
 
@@ -117,4 +117,29 @@
 .aboutChannel-heading {
     color: rgb(80, 80, 80);
     margin-bottom: 10px;
+}
+
+.dark .add__channel-btn {
+    color: rgb(255, 255, 255);
+    background-color: #202020;
+}
+
+.dark .bg__btn-category {
+    color: white;
+}
+.dark .bg__btn-category:hover {
+    color: rgb(128, 128, 128);
+}
+
+.dark .add__channel-btn button:hover {
+    color: rgb(128, 128, 128);
+}
+
+.dark .add__channel-content {
+    background-color: #181818;
+}
+
+.dark .channelsAddCategory {
+    background-color: #181818;
+    padding-top: 30px;
 }

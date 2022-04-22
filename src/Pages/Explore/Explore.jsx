@@ -12,6 +12,7 @@ import learning from "../../Assets/img/learning.png"
 import fashion from "../../Assets/img/fashion.png"
 import { Context } from '../../Context/HamburgerBtn';
 const Explore = () => {
+    const { themeColor, setThemeColor } = useContext(Context)
     const [trendVideo, setTrendVideo] = useState("n")
     const handleClick = (e) => {
         setTrendVideo(e.target.textContent);
@@ -42,14 +43,14 @@ const Explore = () => {
     }
 
     return (
-        <div className='explore'>
-            <div onClick={e => handleClick(e)} className='explore__category'>
+        <div className={`explore ${themeColor}`}>
+            <div onClick={e => handleClick(e)} className={`explore__category ${themeColor}`}>
                 <div className='explore__card'>
                     <img className="explore__card-img" src={trend} alt="" width="32" height="32" />
                     <h3 className='explore__card-heading'>Trending</h3>
                 </div>
                 <div className='explore__card'>
-                    <img className="explore__card-img" src={muzic} alt="" width="32" height="32" />
+                    <i style={{fontSize: "40px"}} className={`material-icons ${themeColor}`}>music_note</i>
                     <h3 className='explore__card-heading'>Muzic</h3>
                 </div>
                 <div className='explore__card'>
@@ -78,29 +79,29 @@ const Explore = () => {
                 </div>
             </div>
 
-            <div style={{marginTop: "30px"}} className="videos explore__content">
+            <div style={{ marginTop: "30px" }} className="videos explore__content">
 
                 {
                     video?.contents?.map(i => {
                         console.log(i);
                         const id = `${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`
-                        return <NavLink onClick={hanldeHistory} id={id} key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`}>
-                            <div style={{display: "flex"}} id={id} className="video explore__video">
+                        return <NavLink className={`explore__links`} onClick={hanldeHistory} id={id} key={Math.random()} to={`/${i.video.channelId}/${i.video.videoId}/${i.video.title}/${i.video.viewCountText}/${i.video.publishedTimeText}/${i.video.channelName}`}>
+                            <div style={{ display: "flex" }} id={id} className={`video explore__video ${themeColor}`}>
                                 <div id={id} className="thumbnail explore__img">
-                                    <p style={{marginRight: "20px"}} id={id}>
-                                        <img style={{marginRight: "20px"}} id={id} src={i.video.thumbnails.map(i => {
+                                    <p style={{ marginRight: "20px" }} id={id}>
+                                        <img style={{ marginRight: "20px" }} id={id} src={i.video.thumbnails.map(i => {
                                             return i.url
                                         }) || notVideo} alt="" />
                                     </p>
                                 </div>
 
-                                <div id={id} className="details">
+                                <div id={id} className={`${themeColor}`}>
                                     <div id={id} className="title esplore__heading">
-                                        <h3 style={{ color: "black", fontSize: "20px" }} id={id}>
+                                        <h3 className={themeColor} style={themeColor ? { color: "white", fontSize: "20px" } : { color: "black", fontSize: "20px" }} id={id}>
                                             {i.video.title}
                                         </h3>
                                         <div style={{ display: "flex", alignItems: "center" }} >
-                                            <a style={{ color: "black", fontSize: "18px", marginRight: "10px" }} id={id} href="">
+                                            <a style={themeColor ? { color: "white", fontSize: "18px", marginRight: "10px" } : { color: "black", fontSize: "18px", marginRight: "10px" }} id={id} href="">
                                                 {i.video.channelName}
                                             </a>
                                             <span id={id}> {i.video.viewCountText} • {i.video.publishedTimeText} </span>
